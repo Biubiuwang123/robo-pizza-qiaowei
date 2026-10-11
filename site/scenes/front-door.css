@@ -1,0 +1,57 @@
+/* Scene 1: Who's at the door? Loaded after scene.css. */
+
+/* Act 1: sign-up form, email, what the desk keeps */
+.form-card { display: grid; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.form-card label { display: grid; gap: 4px; font-size: .85rem; color: var(--muted); }
+.form-card input { font: .95rem ui-monospace, SFMono-Regular, Menlo, monospace; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.mail { margin-top: 14px; background: var(--surface); border: 2px dashed var(--border); border-radius: 12px; padding: 14px 16px; animation: rise .35s ease-out; }
+.mail-head { font-size: .82rem; color: var(--muted); margin: 0 0 4px; }
+.code-big { font: 700 1.2rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; }
+.ledger { margin-top: 14px; border: 2px solid var(--green); border-radius: 12px; padding: 12px 16px; animation: rise .35s ease-out; }
+.ledger-title { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; }
+.ledger-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 6px 0; border-top: 1px dashed var(--border); font-size: .92rem; }
+.ledger-row:first-of-type { border-top: 0; }
+.ledger-row > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.ledger-row small { display: block; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+.ledger-row code { white-space: normal; overflow-wrap: anywhere; }
+.okay { color: var(--green); }
+
+/* Act 2: wristbands, the token up close, rooms */
+#signIn { margin-top: 0; }
+.bands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+@media (max-width: 640px) { .bands { grid-template-columns: 1fr; } }
+.band { display: grid; gap: 2px; text-align: left; font: inherit; color: var(--text); border: 0; border-radius: 18px; padding: 12px 16px; border-left: 6px solid rgba(0,0,0,.12); animation: rise .35s ease-out; }
+button.band { cursor: pointer; }
+.band b { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; }
+.band span { font-size: .92rem; }
+.band code { justify-self: start; font-size: .7rem; background: rgba(255,255,255,.55); color: #2a2420; }
+.band.id { background: #cfe3f5; color: #1e3a52; }
+.band.access { background: var(--green-soft); }
+.band.refresh { background: var(--surface-2); color: var(--muted); }
+.jwt { margin-top: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.jwt-title { font-weight: 600; font-size: .92rem; margin: 0 0 8px; }
+.jwt-raw { font: .82rem ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; margin: 0 0 12px; }
+.j-h { color: #b5531f; }
+.j-p { color: #3f7a4f; }
+.j-s { color: #3f66a8; }
+.jwt-parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 640px) { .jwt-parts { grid-template-columns: 1fr; } }
+.jwt-parts pre { margin: 4px 0 0; font: .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; background: var(--surface); border-radius: 8px; padding: 8px; }
+.rooms { margin-top: 16px; }
+
+/* Act 3: break it */
+.break-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 640px) { .break-grid { grid-template-columns: 1fr; } }
+.break-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.break-card h3 { margin: 0 0 8px; }
+.break-card select { font: inherit; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); max-width: 100%; }
+.break-card .small { font-size: .9rem; color: var(--muted); margin: 0; }
+.break-card .btn-small { margin-right: 6px; }
+
+/* Act 4: guesser */
+.guesses { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 4px; font-size: .88rem; }
+.guesses li { display: flex; gap: 10px; align-items: center; animation: rise .25s ease-out; }
+.guesses span { color: var(--muted); }
+.guesses .lock-msg { color: var(--green); font-weight: 600; }
+.leaked-pw { margin-top: 16px; background: var(--accent-soft); border-radius: 12px; padding: 14px 16px; }
+.leaked-pw p:first-child { margin-top: 0; }

@@ -49,7 +49,7 @@ BUILTIN = [
 # Values that look sensitive but are published documentation placeholders.
 ALLOWED_VALUES = [
     re.compile(r"EXAMPLE"),                                   # AWS docs keys
-    re.compile(r"@(?:example\.(?:com|org|net)|[a-z0-9.-]+\.test)\b"),
+    re.compile(r"@(?:example\.(?:com|org|net)|[a-z0-9.-]+\.(?:test|example))\b"),
     re.compile(re.escape(NOREPLY_SUFFIX)),
     re.compile(r"noreply@anthropic\.com"),                   # commit co-author trailer
     re.compile(r"\b111122223333\b|\b123456789012\b"),         # AWS docs account IDs

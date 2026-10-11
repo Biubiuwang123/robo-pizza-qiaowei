@@ -1,0 +1,38 @@
+# 1. Open a sign-in desk and register the teacher
+   user pool us-east-1_<pool> (Lite plan), app client 'party-site'
+   teacher ms.rivera@maplehill.example registered
+   try a weak password 'pizza1' -> rejected: Password not long enough
+
+# 2. She signs in and gets wristbands
+   ID token: header {"alg": "RS256", "kid": "iBVads…"}
+      claims {"token_use": "id", "email": "ms.rivera@maplehill.example", "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_<pool>"}
+      lifetime 3600 seconds   signature X_uh_neYzT…
+   access token: header {"alg": "RS256", "kid": "qU0AzW…"}
+      claims {"token_use": "access", "scope": "aws.cognito.signin.user.admin", "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_<pool>"}
+      lifetime 3600 seconds   signature Jbu8Gwvi7P…
+   refresh token: 1778 characters, opaque (kept out of sight)
+
+# 3. A room checks the seal on its own
+$ curl https://cognito-idp.us-east-1.amazonaws.com/us-east-1_<pool>/.well-known/jwks.json
+   2 public keys: RS256 kid iBVads…, RS256 kid qU0AzW…
+   RS256 signature on the ID token, checked locally -> VALID
+
+# 4. Edit the wristband
+   email changed to principal@maplehill.example -> signature INVALID
+
+# 5. Quiet renewal with the refresh token
+   new ID token issued, no password typed -> signature VALID
+
+# 6. Someone guesses passwords
+   guess 1: Incorrect username or password.
+   guess 2: Incorrect username or password.
+   guess 3: Incorrect username or password.
+   guess 4: Incorrect username or password.
+   guess 5: Incorrect username or password.
+   guess 6: Password attempts exceeded
+   guess 7: Incorrect username or password.
+   guess 8: Password attempts exceeded
+   right after, even the real password: Password attempts exceeded
+
+# 7. Close the desk
+   deleted user pool us-east-1_<pool>

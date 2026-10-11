@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Who's at the Door? · Robo Orders Pizza</title>
+  <meta name="description" content="A hands-on scene about sign-in: sign the teacher up, get a wristband, break it, and stop a password guesser.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="scene.css">
+  <link rel="stylesheet" href="front-door.css">
+</head>
+<body>
+  <!-- @include header -->
+
+  <main id="main" class="scene-layout wrap">
+    <div class="scene-main">
+      <header class="scene-head">
+        <p class="eyebrow">Scene 1 · Sign-in for people</p>
+        <h1>Who's at the door?</h1>
+        <p class="lede">Before Robo can be sent anywhere, the party site has to know the person giving orders really is Ms. Rivera, the teacher. That starts at the sign-in desk.</p>
+      </header>
+
+      <!-- Act 1: sign up -->
+      <section class="act" id="act1" aria-labelledby="a1">
+        <h2 id="a1"><span class="act-num">1</span> Sign up at the front desk</h2>
+        <div class="form-card">
+          <label>Email <input type="text" value="ms.rivera@maplehill.example" readonly></label>
+          <label>Password <input type="text" id="pw" placeholder="pick one below" readonly></label>
+          <div class="build-row">
+            <button class="btn-small ghost" id="pwWeak">Try "pizza1"</button>
+            <button class="btn-small ghost" id="pwStrong">Use "class-party-pepperoni-7"</button>
+            <button class="btn-small" id="signUp" disabled>Sign up</button>
+          </div>
+          <p class="verdict" id="pwVerdict" hidden></p>
+        </div>
+
+        <div class="mail" id="mail" hidden>
+          <p class="mail-head">📧 To: ms.rivera@maplehill.example</p>
+          <p>Your Maple Hill sign-in code is <b class="code-big">482 913</b></p>
+          <button class="btn-small" id="enterCode">Enter the code</button>
+        </div>
+
+        <div class="ledger" id="ledger" hidden>
+          <p class="ledger-title">What the desk writes down</p>
+          <div class="ledger-row"><span>Email</span><span>ms.rivera@maplehill.example <b class="okay">verified ✓</b></span></div>
+          <div class="ledger-row"><span>Password</span><span><code id="fingerprint">…</code><small>a salted fingerprint, not the password · <code>password hash</code></small></span></div>
+        </div>
+        <p class="robo-says"><span class="robo-face" aria-hidden="true">🤖</span> <span id="robo1">Pick a password.</span></p>
+      </section>
+
+      <!-- Act 2: wristbands -->
+      <section class="act" id="act2" aria-labelledby="a2">
+        <h2 id="a2"><span class="act-num">2</span> Get a wristband</h2>
+        <p>Ms. Rivera signs in once. Instead of asking for her password at every door, the desk hands her wristbands.</p>
+        <button class="btn-small" id="signIn">Sign in</button>
+        <div class="bands" id="bands" hidden>
+          <button class="band id" id="bandId"><b>Who</b><span>Ms. Rivera</span><code>ID token</code></button>
+          <button class="band access" id="bandAccess"><b>May</b><span>order pizza, see the class list</span><code>access token</code></button>
+          <div class="band refresh"><b>In her pocket</b><span>for a quiet renewal later</span><code>refresh token</code></div>
+        </div>
+        <div class="jwt" id="jwt" hidden>
+          <p class="jwt-title">Up close: the wristband is three parts, joined by dots <code>JWT</code></p>
+          <p class="jwt-raw"><span class="j-h" id="jH"></span>.<span class="j-p" id="jP"></span>.<span class="j-s" id="jS"></span></p>
+          <div class="jwt-parts">
+            <div><b class="j-h">Header</b><pre id="jHd"></pre></div>
+            <div><b class="j-p">Contents</b><pre id="jPd"></pre></div>
+            <div><b class="j-s">Seal</b><pre>signed by the desk's
+private key</pre></div>
+          </div>
+        </div>
+        <div class="rooms" id="rooms" hidden>
+          <p>Now show it at the doors. Each room checks the seal itself, using the desk's <em>public</em> seal pattern. No call back to the desk.</p>
+          <div class="choice-row">
+            <button class="btn-choice" data-room="party">The party page<small>needs: who</small></button>
+            <button class="btn-choice" data-room="pizza">The pizza order room<small>needs: may order pizza</small></button>
+          </div>
+          <p class="verdict" id="roomVerdict" hidden></p>
+          <p class="caption">The public seal pattern is published as a <code>JWKS</code> file; anyone can fetch it.</p>
+        </div>
+      </section>
+
+      <!-- Act 3: break it -->
+      <section class="act" id="act3" aria-labelledby="a3">
+        <h2 id="a3"><span class="act-num">3</span> Break the wristband</h2>
+        <div class="break-grid">
+          <div class="break-card">
+            <h3>Edit it</h3>
+            <label class="toggle"><span>May:</span>
+              <select id="mayEdit">
+                <option value="order pizza, see the class list">order pizza, see the class list</option>
+                <option value="everything">everything</option>
+              </select>
+            </label>
+            <button class="btn-small" id="showEdited">Show it at the pizza room</button>
+            <p class="verdict" id="editVerdict" hidden></p>
+          </div>
+          <div class="break-card">
+            <h3>Wait an hour</h3>
+            <p class="small">Wristbands are made to run out.</p>
+            <button class="btn-small" id="fastForward">Fast-forward 1 hour</button>
+            <button class="btn-small ghost" id="useRefresh" hidden>Use the pocket band</button>
+            <p class="verdict" id="timeVerdict" hidden></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Act 4: guesser -->
+      <section class="act" id="act4" aria-labelledby="a4">
+        <h2 id="a4"><span class="act-num">4</span> A guesser at the door</h2>
+        <p>Someone wants Ms. Rivera's account and starts guessing passwords.</p>
+        <div class="build-row">
+          <button class="btn-small" id="guess">Let the guesser try</button>
+        </div>
+        <ol class="guesses" id="guesses"></ol>
+        <p class="verdict" id="guessVerdict" hidden></p>
+        <div class="leaked-pw" id="leakedBox" hidden>
+          <p>Worse: her password leaked from another site where she reused it. The guesser now has the real one.</p>
+          <label class="toggle"><input type="checkbox" id="mfa"> Ask for a second proof: a code from her phone</label>
+          <button class="btn-small" id="realPw">Guesser signs in with the real password</button>
+          <p class="verdict" id="mfaVerdict" hidden></p>
+          <p class="caption">A second proof is <code>MFA</code>: something you <em>have</em> on top of something you <em>know</em>.</p>
+        </div>
+      </section>
+
+      <!-- Wrap-up -->
+      <section class="act" id="wrap" aria-labelledby="aw">
+        <h2 id="aw">What you just used</h2>
+        <div class="glossary">
+          <div><b>Sign-in desk</b><span>identity provider (a "user pool")</span></div>
+          <div><b>Code by email</b><span>verifying the contact address</span></div>
+          <div><b>Fingerprint</b><span>salted password hash</span></div>
+          <div><b>Wristbands</b><span>ID and access tokens</span></div>
+          <div><b>Seal</b><span>digital signature on a JWT</span></div>
+          <div><b>Public seal pattern</b><span>JWKS, the desk's public keys</span></div>
+          <div><b>Pocket band</b><span>refresh token</span></div>
+          <div><b>Too many tries</b><span>lockout, rate limiting</span></div>
+          <div><b>Code from her phone</b><span>multi-factor authentication</span></div>
+        </div>
+
+        <h3>Who builds sign-in desks</h3>
+        <ul class="who">
+          <li><b>Run your own</b> with open-source <a href="https://www.keycloak.org/" rel="noopener">Keycloak</a>.</li>
+          <li><b>Built into each cloud</b>: <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html" rel="noopener">Amazon Cognito</a>, <a href="https://firebase.google.com/docs/auth" rel="noopener">Firebase Authentication</a>, <a href="https://learn.microsoft.com/en-us/entra/external-id/external-identities-overview" rel="noopener">Microsoft Entra External ID</a>.</li>
+          <li><b>Made for developer teams</b>: <a href="https://auth0.com/docs/get-started/auth0-overview" rel="noopener">Auth0</a>, <a href="https://clerk.com/docs" rel="noopener">Clerk</a>, and others.</li>
+        </ul>
+
+        <details class="peek">
+          <summary>Peek at a real sign-in desk</summary>
+          <p>This scene, for real, in Amazon Cognito: a desk opened, the teacher signed in, the seal checked with only Python's standard library, a forged wristband caught, a quiet renewal, a guesser locked out, and the desk closed afterwards. Tokens are never shown whole.</p>
+<pre class="replay"><code><!-- @replay front-door --></code></pre>
+          <p class="caption">Run it yourself: <a href="https://github.com/Biubiuwang123/robo-pizza-qiaowei/blob/main/lab/front_door.py" rel="noopener">lab/front_door.py</a>.</p>
+        </details>
+      </section>
+    </div>
+
+    <aside class="mvp" id="mvpBox" aria-labelledby="mvp-title">
+      <h2 id="mvp-title">The smallest sign-in desk that works</h2>
+      <p class="mvp-sub">Ticks as you play</p>
+      <ol class="mvp-list" id="mvp">
+        <li data-k="verify">Confirms you own the email</li>
+        <li data-k="hash">Never keeps the password itself</li>
+        <li data-k="band">Checks once, then hands out a wristband</li>
+        <li data-k="seal">Seals it, so any room can check it alone</li>
+        <li data-k="expire">Makes wristbands run out, with a quiet renewal</li>
+        <li data-k="slow">Slows down anyone guessing</li>
+        <li data-k="mfa">Asks for a second proof when a password isn't enough</li>
+      </ol>
+      <p class="mvp-done" id="mvpDone" hidden>That's the whole product. Everything else is scale and polish.</p>
+    </aside>
+  </main>
+
+  <a class="mvp-pill" id="mvpPill" href="#mvpBox">Sign-in desk: 0/7</a>
+
+  <!-- @include scene-nav -->
+
+  <!-- @include footer -->
+
+  <script src="scene-kit.js"></script>
+  <script src="front-door.js"></script>
+</body>
+</html>

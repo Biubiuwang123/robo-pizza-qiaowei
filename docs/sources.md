@@ -3,6 +3,24 @@
 Every factual claim on the site cites one of these public pages. Each entry records
 when it was last checked.
 
+## Scene 1: Who's at the door?
+
+| Claim | Source | Checked |
+|---|---|---|
+| ID tokens carry identity claims; access tokens carry scopes | [Cognito tokens](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html) | 2026-10-11 |
+| Tokens are verified against the user pool's JWKS public keys | [Verifying a JWT](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html) | 2026-10-11 |
+| Refresh tokens get new ID and access tokens | [Refresh tokens](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-refresh-token.html) | 2026-10-11 |
+| MFA adds a "something you have" factor | [Adding MFA](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-mfa.html) | 2026-10-11 |
+| Users confirm sign-up by verifying contact information | [Signing up and confirming](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html) | 2026-10-11 |
+| Lite is a user pool feature plan | [Feature plans](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-sign-in-feature-plans.html) | 2026-10-11 |
+| Passwords should be salted and hashed | [NIST SP 800-63B](https://pages.nist.gov/800-63-4/sp800-63b.html) | 2026-10-11 |
+| Token lifetime 3600 s, lockout after 5 wrong passwords, weak password rejected | Observed in a real run of lab/front_door.py on 2026-10-11 | 2026-10-11 |
+| Amazon Cognito overview | [What is Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html) | 2026-10-11 |
+| Keycloak is open-source identity and access management | [keycloak.org](https://www.keycloak.org/) | 2026-10-11 |
+| Firebase Authentication | [Firebase docs](https://firebase.google.com/docs/auth) | 2026-10-11 |
+| Microsoft Entra External ID | [Microsoft Learn](https://learn.microsoft.com/en-us/entra/external-id/external-identities-overview) | 2026-10-11 |
+| Auth0, Clerk | [Auth0 docs](https://auth0.com/docs/get-started/auth0-overview), [Clerk docs](https://clerk.com/docs) | 2026-10-11 |
+
 ## Scene 2: Is that badge real?
 
 | Claim | Source | Checked |
@@ -41,4 +59,4 @@ when it was last checked.
 | Doppler | [Doppler docs](https://docs.doppler.com/docs) | 2026-10-11 |
 | The locked box replay | Real run of lab/locked_box.py in a personal AWS account on 2026-10-11; all resources deleted | 2026-10-11 |
 
-Trusty Stamps, Maple Hill Elementary, and the `.example` party sites are made up.
+Ms. Rivera, Trusty Stamps, Maple Hill Elementary, and the `.example` party sites are made up.

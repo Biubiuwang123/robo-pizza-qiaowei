@@ -7,7 +7,7 @@
       "play": "Sign up the teacher, log in, and see the wristband the party site hands her, then watch what happens when it expires.",
       "aws": "Amazon Cognito",
       "page": "front-door.html",
-      "status": "soon"
+      "status": "live"
     },
     {
       "title": "Is that badge real?",
