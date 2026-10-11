@@ -30,7 +30,7 @@ would solve it? The AWS name comes at the end.
 Early build. Chapters arrive one at a time.
 
 - [x] Landing page — live at https://robo.qiaowei.wang
-- [x] Scene 1 — Who's at the door? (in review)
+- [x] Scene 1 — Who's at the door? (complete)
 - [x] Scene 2 — Is that badge real? (complete)
 - [x] Scene 3 — The locked box (complete)
 - [ ] Scene 4 — The staff roster
