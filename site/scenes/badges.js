@@ -1,26 +1,10 @@
 // Scene 2: "Is that badge real?" - all simulated in the browser, nothing is sent anywhere.
 (function () {
-  const $ = (id) => document.getElementById(id);
-
-  // ---- The minimum badge office checklist ----
-  function tick(key) {
-    const item = document.querySelector(`#mvp [data-k="${key}"]`);
-    if (item && !item.classList.contains("done")) {
-      item.classList.add("done");
-      item.classList.add("pop");
-      setTimeout(() => item.classList.remove("pop"), 600);
-    }
-    const all = document.querySelectorAll("#mvp li[data-k]");
-    const done = document.querySelectorAll("#mvp li.done");
-    const pill = $("mvpPill");
-    pill.textContent = `Badge office: ${done.length}/${all.length}` + (done.length === all.length ? " ✓" : "");
-    pill.classList.remove("pop"); void pill.offsetWidth; pill.classList.add("pop");
-    if (all.length === done.length) $("mvpDone").hidden = false;
-  }
-  function unlock(id) { $(id).classList.remove("locked"); }
-
-  // Acts after the first start locked until the previous step is played.
-  ["act2", "act3", "act4", "act5", "act6", "act7", "wrap"].forEach((id) => $(id).classList.add("locked"));
+  // Acts unlock in order as the reader plays; see scene-kit.js.
+  const { $, tick, unlock } = SceneKit.start({
+    pillLabel: "Badge office",
+    locked: ["act2", "act3", "act4", "act5", "act6", "act7", "wrap"],
+  });
 
   // ---- Act 1: inspect the real badge ----
   $("lock1").addEventListener("click", () => {

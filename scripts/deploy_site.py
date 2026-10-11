@@ -15,7 +15,7 @@ Steps, each safe to re-run:
     python3 scripts/deploy_site.py cert      # request the ACM cert, print the DNS validation record
     python3 scripts/deploy_site.py status    # is the cert issued? what is the CloudFront hostname?
     python3 scripts/deploy_site.py infra     # create the bucket, OAC, distribution, bucket policy
-    python3 scripts/deploy_site.py upload    # sync site/ to S3 and invalidate the CloudFront cache
+    python3 scripts/deploy_site.py upload    # build, sync dist/ to S3, invalidate the CloudFront cache
     python3 scripts/teardown.py              # delete everything this script created
 
 Settings come from environment variables (defaults in brackets):
@@ -35,7 +35,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE_FILE = ROOT / ".deploy-state.json"
-SITE_DIR = ROOT / "site"
+DIST_DIR = ROOT / "dist"   # built by scripts/build_site.py
 
 DOMAIN = os.environ.get("ROBO_DOMAIN", "robo.qiaowei.wang")
 PROFILE = os.environ.get("ROBO_PROFILE", "robo")
@@ -177,12 +177,15 @@ def infra():
 
 
 def upload():
-    """Copy site/ to the bucket and clear CloudFront's cache."""
+    """Build the site, copy dist/ to the bucket, and clear CloudFront's cache."""
     state = load_state()
     if "bucket" not in state:
         sys.exit("Run 'infra' first.")
-    aws("s3", "sync", str(SITE_DIR), f"s3://{state['bucket']}", "--delete",
-        "--exclude", "README.md", "--exclude", ".DS_Store", parse=False)
+    build = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_site.py")])
+    if build.returncode != 0:
+        sys.exit("Build failed; nothing uploaded.")
+    aws("s3", "sync", str(DIST_DIR), f"s3://{state['bucket']}", "--delete",
+        "--exclude", ".DS_Store", parse=False)
     aws("cloudfront", "create-invalidation", "--distribution-id", state["distribution_id"],
         "--paths", "/*")
     print(f"Uploaded. Live at https://{DOMAIN} once DNS points at CloudFront.")

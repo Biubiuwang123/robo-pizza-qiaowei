@@ -1,22 +1,10 @@
 // Scene 3: "The locked box" - all simulated in the browser, nothing is sent anywhere.
 (function () {
-  const $ = (id) => document.getElementById(id);
-
-  function tick(key) {
-    const item = document.querySelector(`#mvp [data-k="${key}"]`);
-    if (item && !item.classList.contains("done")) {
-      item.classList.add("done", "pop");
-      setTimeout(() => item.classList.remove("pop"), 600);
-    }
-    const all = document.querySelectorAll("#mvp li[data-k]");
-    const done = document.querySelectorAll("#mvp li.done");
-    const pill = $("mvpPill");
-    pill.textContent = `Locked box: ${done.length}/${all.length}` + (done.length === all.length ? " ✓" : "");
-    pill.classList.remove("pop"); void pill.offsetWidth; pill.classList.add("pop");
-    if (all.length === done.length) $("mvpDone").hidden = false;
-  }
-  const unlock = (id) => $(id).classList.remove("locked");
-  ["act2", "act3", "wrap"].forEach((id) => $(id).classList.add("locked"));
+  // Acts unlock in order as the reader plays; see scene-kit.js.
+  const { $, tick, unlock } = SceneKit.start({
+    pillLabel: "Locked box",
+    locked: ["act2", "act3", "wrap"],
+  });
 
   // ---- Act 1: the password written into the instructions ----
   $("share").addEventListener("click", () => {

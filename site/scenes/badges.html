@@ -8,22 +8,10 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="scene.css">
+  <link rel="stylesheet" href="badges.css">
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="wrap header-row">
-      <a class="brand" href="../" aria-label="Robo Orders Pizza, home">
-        <img src="../assets/favicon.svg" alt="" width="28" height="28">
-        <span>Robo Orders Pizza</span>
-      </a>
-      <nav aria-label="Main">
-        <a href="../#scenes">Scenes</a>
-        <a href="../#about">About</a>
-      </nav>
-    </div>
-  </header>
+  <!-- @include header -->
 
   <main id="main" class="scene-layout wrap">
     <div class="scene-main">
@@ -216,43 +204,14 @@
         <details class="peek">
           <summary>Peek at a real private badge office</summary>
           <p>Part two, for real: a master stamp, a desk stamp, and badges built with openssl on a laptop, then real handshakes between Robo and the kitchen.</p>
-<pre class="replay"><code># Building the school&#x27;s badge office (openssl, EC P-256)
-master.crt   subject=CN=Maple Hill Master Stamp
-             issuer=CN=Maple Hill Master Stamp
-desk.crt     subject=CN=Maple Hill Desk Stamp
-             issuer=CN=Maple Hill Master Stamp
-robo.crt     subject=CN=robo.school.example
-             issuer=CN=Maple Hill Desk Stamp
-kitchen.crt  subject=CN=kitchen.school.example
-             issuer=CN=Maple Hill Desk Stamp
-
-# 1. Robo knocks on the kitchen door (mutual TLS)
-   kitchen sees robo.school.example, TLSv1.2, ECDHE-ECDSA-CHACHA20-POLY1305
-   robo sees kitchen.school.example, reply: Come in.
-   -&gt; ACCEPTED
-
-# 2. An outside drone with a badge from another office knocks
-   kitchen&#x27;s check: unable to get local issuer certificate
-   -&gt; REJECTED
-
-# 3. Robo&#x27;s key was copied: cancel its badge, publish the cancelled list
-   CRL: Serial Number: 1000
-   CRL: Key Compromise
-   kitchen&#x27;s check: certificate revoked
-   -&gt; REJECTED</code></pre>
+<pre class="replay"><code><!-- @replay badge-office --></code></pre>
           <p class="caption">Run it yourself: <a href="https://github.com/Biubiuwang123/robo-pizza-qiaowei/blob/main/lab/badge_office.py" rel="noopener">lab/badge_office.py</a>. This is the do-it-yourself version; a managed private CA does the stamping and the cancelled list for you.</p>
         </details>
 
         <details class="peek">
           <summary>Peek at the real badge on this page</summary>
           <p>This page's padlock is a real badge from AWS Certificate Manager. Here's its chain, from a terminal:</p>
-<pre class="replay"><code><span class="prompt">$</span> openssl s_client -connect robo.qiaowei.wang:443 -showcerts
- 0 s:CN=robo.qiaowei.wang
-   i:C=US, O=Amazon, CN=Amazon ECDSA 256 M04
- 1 s:C=US, O=Amazon, CN=Amazon ECDSA 256 M04
-   i:C=US, O=Amazon, CN=Amazon Root CA 3
- 2 s:C=US, O=Amazon, CN=Amazon Root CA 3
-   i:C=US, ST=Arizona, L=Scottsdale, O=Starfield Technologies, Inc., CN=Starfield Services Root Certificate Authority - G2</code></pre>
+<pre class="replay"><code><!-- @replay site-certificate --></code></pre>
           <p class="caption">Each badge is vouched for by the one below it, down to a stamp office built into your browser. Every public badge is also listed in public logs: <a href="https://crt.sh/?q=robo.qiaowei.wang" rel="noopener">see this one</a>.</p>
         </details>
       </section>
@@ -282,16 +241,11 @@ kitchen.crt  subject=CN=kitchen.school.example
 
   <a class="mvp-pill" id="mvpPill" href="#mvpBox">Badge office: 0/11</a>
 
-  <nav class="scene-nav wrap" aria-label="Scenes">
-    <a href="../#scenes">&larr; All scenes</a>
-  </nav>
+  <!-- @include scene-nav -->
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>© 2026 Qiaowei Wang · Personal project, public sources only · Built with Claude Code</p>
-    </div>
-  </footer>
+  <!-- @include footer -->
 
+  <script src="scene-kit.js"></script>
   <script src="badges.js"></script>
 </body>
 </html>

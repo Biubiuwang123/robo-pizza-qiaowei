@@ -8,22 +8,10 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="scene.css">
+  <link rel="stylesheet" href="locked-box.css">
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="wrap header-row">
-      <a class="brand" href="../" aria-label="Robo Orders Pizza, home">
-        <img src="../assets/favicon.svg" alt="" width="28" height="28">
-        <span>Robo Orders Pizza</span>
-      </a>
-      <nav aria-label="Main">
-        <a href="../#scenes">Scenes</a>
-        <a href="../#about">About</a>
-      </nav>
-    </div>
-  </header>
+  <!-- @include header -->
 
   <main id="main" class="scene-layout wrap">
     <div class="scene-main">
@@ -136,27 +124,7 @@
         <details class="peek">
           <summary>Peek at a real locked box</summary>
           <p>This scene, for real, in AWS Secrets Manager: a box created, two names checked against the list by AWS's own policy evaluator, the combination changed, and everything deleted afterwards. The password was random and only its first letter is shown.</p>
-<pre class="replay"><code># 1. Put the pizza shop&#x27;s password in the box
-$ aws secretsmanager create-secret --name robo-pizza/pizza-shop-login
-   ARN: arn:aws:secretsmanager:us-east-1:&lt;account&gt;:secret:robo-pizza/pizza-shop-login-&lt;id&gt;
-   Encrypted with: aws/secretsmanager (AWS managed key)
-
-# 2. The list: Robo may open the box, the hall monitor may not
-   Robo          GetSecretValue on the box -&gt; allowed
-   Hall monitor  GetSecretValue on the box -&gt; implicitDeny
-   (evaluated by IAM&#x27;s policy simulator; anything not explicitly allowed is denied)
-
-# 3. Ask the box at the moment the password is needed
-$ aws secretsmanager get-secret-value --secret-id robo-pizza/pizza-shop-login
-   password: _•••••••••••••••   version stages: [&#x27;AWSCURRENT&#x27;]
-
-# 4. Change the combination
-   version 2eecbe77…  AWSPREVIOUS
-   version 3c9d74c9…  AWSCURRENT
-   Robo&#x27;s next ask gets: c•••••••••••••••  (the new one: True)
-
-# 5. Clean up
-   deleted robo-pizza/pizza-shop-login and roles robo-pizza-robo, robo-pizza-hall-monitor</code></pre>
+<pre class="replay"><code><!-- @replay locked-box --></code></pre>
           <p class="caption">Run it yourself: <a href="https://github.com/Biubiuwang123/robo-pizza-qiaowei/blob/main/lab/locked_box.py" rel="noopener">lab/locked_box.py</a>.</p>
         </details>
       </section>
@@ -180,16 +148,11 @@ $ aws secretsmanager get-secret-value --secret-id robo-pizza/pizza-shop-login
 
   <a class="mvp-pill" id="mvpPill" href="#mvpBox">Locked box: 0/7</a>
 
-  <nav class="scene-nav wrap" aria-label="Scenes">
-    <a href="../#scenes">&larr; All scenes</a>
-  </nav>
+  <!-- @include scene-nav -->
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>© 2026 Qiaowei Wang · Personal project, public sources only · Built with Claude Code</p>
-    </div>
-  </footer>
+  <!-- @include footer -->
 
+  <script src="scene-kit.js"></script>
   <script src="locked-box.js"></script>
 </body>
 </html>

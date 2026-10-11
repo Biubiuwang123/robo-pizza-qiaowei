@@ -1,12 +1,7 @@
 # site/
 
-The static website: plain HTML, CSS and a little JavaScript, one page per chapter.
-No server, no build step, no third-party fonts or scripts.
+Sources for the static website. Edit here, then build: `python3 scripts/build_site.py`
+writes the deployable site to `dist/`. Preview with `sh scripts/preview.sh`.
 
-Preview locally:
-
-```bash
-python3 -m http.server 8765 --bind 127.0.0.1 --directory site
-```
-
-Then open http://127.0.0.1:8765.
+See [`../docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md) for how pages, partials,
+scenes and replays fit together.

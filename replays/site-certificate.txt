@@ -1,0 +1,7 @@
+$ openssl s_client -connect robo.qiaowei.wang:443 -showcerts
+ 0 s:CN=robo.qiaowei.wang
+   i:C=US, O=Amazon, CN=Amazon ECDSA 256 M04
+ 1 s:C=US, O=Amazon, CN=Amazon ECDSA 256 M04
+   i:C=US, O=Amazon, CN=Amazon Root CA 3
+ 2 s:C=US, O=Amazon, CN=Amazon Root CA 3
+   i:C=US, ST=Arizona, L=Scottsdale, O=Starfield Technologies, Inc., CN=Starfield Services Root Certificate Authority - G2

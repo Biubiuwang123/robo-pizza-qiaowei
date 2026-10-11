@@ -23,3 +23,6 @@ __pycache__/
 
 # Deployed resource IDs (contain account details)
 .deploy-state.json
+
+# Build output
+dist/

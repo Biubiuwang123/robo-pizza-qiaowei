@@ -1,0 +1,37 @@
+{
+  "_comment": "The landing page's scene list is built from this file. Set status to \"live\" when a scene ships; \"page\" is its file in site/scenes/.",
+  "scenes": [
+    {
+      "title": "Who's at the door?",
+      "subtitle": "Sign-in for people",
+      "play": "Sign up the teacher, log in, and see the wristband the party site hands her, then watch what happens when it expires.",
+      "aws": "Amazon Cognito",
+      "page": "front-door.html",
+      "status": "soon"
+    },
+    {
+      "title": "Is that badge real?",
+      "subtitle": "Badges for websites and robots",
+      "play": "Inspect a website's badge, catch two impostors, earn a badge of your own, and fast-forward time.",
+      "aws": "AWS Certificate Manager · AWS Private CA",
+      "page": "badges.html",
+      "status": "live"
+    },
+    {
+      "title": "The locked box",
+      "subtitle": "Keeping secrets out of sight",
+      "play": "Hide the pizza shop's password, let only Robo open the box, and change the combination without breaking anything.",
+      "aws": "AWS Secrets Manager",
+      "page": "locked-box.html",
+      "status": "live"
+    },
+    {
+      "title": "The staff roster",
+      "subtitle": "One list of who works here",
+      "play": "Add a new teacher once and watch every school system recognize her; remove her and access disappears everywhere.",
+      "aws": "AWS Directory Service",
+      "page": "staff-roster.html",
+      "status": "soon"
+    }
+  ]
+}

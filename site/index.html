@@ -9,20 +9,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="wrap header-row">
-      <a class="brand" href="./" aria-label="Robo Orders Pizza, home">
-        <img src="assets/favicon.svg" alt="" width="28" height="28">
-        <span>Robo Orders Pizza</span>
-      </a>
-      <nav aria-label="Main">
-        <a href="#scenes">Scenes</a>
-        <a href="#about">About</a>
-      </nav>
-    </div>
-  </header>
+  <!-- @include header -->
 
   <main id="main">
     <!-- Hero -->
@@ -109,46 +96,7 @@
       <div class="wrap">
         <h2 id="scenes-title" class="section-title">Four scenes</h2>
         <ol class="chapter-list">
-          <li class="chapter">
-            <span class="num">1</span>
-            <div>
-              <h3>Who's at the door?</h3>
-              <p class="plain">Sign-in for people</p>
-              <p>Sign up the teacher, log in, and see the wristband the party site hands her, then watch what happens when it expires.</p>
-              <p class="aws-name">On AWS: Amazon Cognito</p>
-            </div>
-            <span class="status">Coming soon</span>
-          </li>
-          <li class="chapter">
-            <span class="num">2</span>
-            <div>
-              <h3><a href="scenes/badges.html">Is that badge real?</a></h3>
-              <p class="plain">Badges for websites and robots</p>
-              <p>Inspect a website's badge, catch two impostors, earn a badge of your own, and fast-forward time.</p>
-              <p class="aws-name">On AWS: AWS Certificate Manager · AWS Private CA</p>
-            </div>
-            <a class="status live" href="scenes/badges.html">Play &rarr;</a>
-          </li>
-          <li class="chapter">
-            <span class="num">3</span>
-            <div>
-              <h3><a href="scenes/locked-box.html">The locked box</a></h3>
-              <p class="plain">Keeping secrets out of sight</p>
-              <p>Hide the pizza shop's password, let only Robo open the box, and change the combination without breaking anything.</p>
-              <p class="aws-name">On AWS: AWS Secrets Manager</p>
-            </div>
-            <a class="status live" href="scenes/locked-box.html">Play &rarr;</a>
-          </li>
-          <li class="chapter">
-            <span class="num">4</span>
-            <div>
-              <h3>The staff roster</h3>
-              <p class="plain">One list of who works here</p>
-              <p>Add a new teacher once and watch every school system recognize her; remove her and access disappears everywhere.</p>
-              <p class="aws-name">On AWS: AWS Directory Service</p>
-            </div>
-            <span class="status">Coming soon</span>
-          </li>
+          <!-- @scenes -->
         </ol>
       </div>
     </section>
@@ -178,10 +126,6 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>© 2026 Qiaowei Wang · Personal project, public sources only · Built with Claude Code</p>
-    </div>
-  </footer>
+  <!-- @include footer -->
 </body>
 </html>
