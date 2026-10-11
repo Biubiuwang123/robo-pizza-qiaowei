@@ -1,0 +1,3 @@
+#!/bin/sh
+# Blocks the commit if staged files contain secrets or private terms.
+exec python3 scripts/leak_check.py --staged

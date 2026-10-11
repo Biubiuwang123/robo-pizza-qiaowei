@@ -1,0 +1,4 @@
+#!/bin/sh
+# Last gate before anything reaches GitHub: every commit, author and message.
+python3 scripts/leak_check.py --history || exit 1
+exec python3 scripts/leak_check.py --all

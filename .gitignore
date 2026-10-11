@@ -1,0 +1,19 @@
+# Keys, certificates and anything the lab generates stay on the laptop.
+lab/out/
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+.env
+.env.*
+!.env.example
+
+# The denylist is local-only by design; never commit one by accident.
+denylist*.txt
+
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
