@@ -33,9 +33,10 @@
           <p class="eyebrow">A hands-on tour of identity on AWS</p>
           <h1>How does a robot prove who it is, and order pizza safely?</h1>
           <p class="lede">
-            Seven short chapters explain how sign-in, certificates, permissions, and secrets fit
-            together on AWS. Each one is a step in a robot's errand, explained three ways,
-            priced from public list prices, compared with alternatives, and shown running.
+            Seven short chapters follow a robot's errand through sign-in, certificates,
+            permissions, and secrets on AWS. Each starts in plain English, then goes under the
+            hood: OIDC tokens, X.509 chains, mutual TLS, short-lived STS credentials, and
+            secret rotation, each priced, compared, and shown running.
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href="#story">Read the story</a>
@@ -83,10 +84,10 @@
       <div class="wrap">
         <h2 id="ideas-title" class="section-title">Four ideas this tour keeps apart</h2>
         <ul class="idea-grid">
-          <li><span class="idea-tag">Identity</span><strong>Who you are</strong><p>The teacher, or Robo itself.</p></li>
-          <li><span class="idea-tag">Permission</span><strong>What you may do</strong><p>Proving who you are does not mean you may do anything.</p></li>
-          <li><span class="idea-tag">Credential</span><strong>How you prove it</strong><p>A password, a badge, a temporary key.</p></li>
-          <li><span class="idea-tag">Secret storage</span><strong>Where secrets live</strong><p>A locked box, opened only by someone allowed to.</p></li>
+          <li><span class="idea-tag">Identity</span><strong>Who you are</strong><p>Authentication (AuthN): the system confirms who is asking, a person or a workload.</p></li>
+          <li><span class="idea-tag">Permission</span><strong>What you may do</strong><p>Authorization (AuthZ): each request is checked against policy. Anything not explicitly allowed is denied.</p></li>
+          <li><span class="idea-tag">Credential</span><strong>How you prove it</strong><p>A password, a signed token, an X.509 certificate and its private key, or a temporary access key.</p></li>
+          <li><span class="idea-tag">Secret storage</span><strong>Where secrets live</strong><p>Encrypted at rest, released only to authorized callers, and rotated without touching code.</p></li>
         </ul>
       </div>
     </section>
@@ -119,7 +120,9 @@
             <div>
               <h3>The teacher logs in</h3>
               <p class="service">Amazon Cognito</p>
-              <p>Sign-in for people: accounts, passwords, and tokens that say who signed in.</p>
+              <p class="plain">Sign-in for people, without building a login system.</p>
+              <p class="under"><span class="under-label">Under the hood</span>A Cognito user pool authenticates the teacher over OAuth 2.0 and OpenID Connect and returns signed JWTs: an <em>ID token</em> (who signed in) and an <em>access token</em> (what this app may call). Any service can verify them offline against the pool's public signing keys (JWKS).</p>
+              <p class="src">Sources: <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html" rel="noopener">Tokens</a> · <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html" rel="noopener">Verifying a JWT</a></p>
               <p class="see">See it run: a live sign-in on this site</p>
             </div>
             <span class="status">Coming soon</span>
@@ -129,7 +132,9 @@
             <div>
               <h3>The website has to be the real one</h3>
               <p class="service">AWS Certificate Manager</p>
-              <p>The padlock in your browser, and the certificate behind it.</p>
+              <p class="plain">The padlock that proves this site is really the school's.</p>
+              <p class="under"><span class="under-label">Under the hood</span>ACM issues a public TLS certificate once a DNS record proves control of the domain, then renews it automatically while that record stays in place. To serve it from CloudFront, the certificate must live in <code>us-east-1</code>.</p>
+              <p class="src">Sources: <a href="https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html" rel="noopener">DNS validation</a> · <a href="https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html" rel="noopener">Managed renewal</a> · <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html" rel="noopener">CloudFront requirements</a></p>
               <p class="see">See it run: this site's own HTTPS certificate</p>
             </div>
             <span class="status">Coming soon</span>
@@ -139,7 +144,9 @@
             <div>
               <h3>The badge office signs Robo's badge</h3>
               <p class="service">AWS Private Certificate Authority</p>
-              <p>Running your own badge office for machines, first by hand, then managed.</p>
+              <p class="plain">Running your own badge office for machines: first by hand, then managed.</p>
+              <p class="under"><span class="under-label">Under the hood</span>A private CA signs X.509 certificates that bind a workload's name to its public key, usually in a chain of root &rarr; subordinate &rarr; leaf. Doing it yourself means guarding the CA keys and publishing revocation; AWS Private CA runs the CA and offers revocation through CRLs, OCSP, or both.</p>
+              <p class="src">Sources: <a href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html" rel="noopener">What is AWS Private CA</a> · <a href="https://docs.aws.amazon.com/privateca/latest/userguide/revocation-setup.html" rel="noopener">Revocation</a></p>
               <p class="see">See it run: a certificate authority built with openssl</p>
             </div>
             <span class="status">Coming soon</span>
@@ -149,7 +156,9 @@
             <div>
               <h3>Robo and the kitchen check each other's badges</h3>
               <p class="service">Mutual TLS</p>
-              <p>Both sides prove who they are before they talk.</p>
+              <p class="plain">Both sides prove who they are before they talk.</p>
+              <p class="under"><span class="under-label">Under the hood</span>In mutual TLS, client and server each present a certificate, validate the other's chain back to a root they trust, and prove they hold the matching private key during the handshake. That settles <em>who</em> is talking, not <em>what</em> Robo may do; that's the next chapter.</p>
+              <p class="src">Sources: <a href="https://www.rfc-editor.org/rfc/rfc8446" rel="noopener">TLS 1.3, RFC 8446</a></p>
               <p class="see">See it run: two tiny services shake hands</p>
             </div>
             <span class="status">Coming soon</span>
@@ -159,7 +168,9 @@
             <div>
               <h3>The key desk hands out a temporary key</h3>
               <p class="service">AWS IAM, IAM Roles Anywhere, AWS STS</p>
-              <p>Permissions, and keys that expire, instead of one master key forever.</p>
+              <p class="plain">Keys that expire, instead of one master key forever.</p>
+              <p class="under"><span class="under-label">Under the hood</span>IAM Roles Anywhere lets a workload outside AWS trade its X.509 certificate, issued by a CA registered as a <em>trust anchor</em>, for temporary STS credentials through a signed <code>CreateSession</code> call. Every request is then checked against IAM policy, where anything not explicitly allowed is denied, and once the credentials expire AWS stops accepting them.</p>
+              <p class="src">Sources: <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html" rel="noopener">Roles Anywhere</a> · <a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication.html" rel="noopener">CreateSession signing</a> · <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html" rel="noopener">Temporary credentials</a> · <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic_policy-eval-denyallow.html" rel="noopener">Policy evaluation</a></p>
               <p class="see">See it run: a long-lived key "before", short-lived credentials "after"</p>
             </div>
             <span class="status">Coming soon</span>
@@ -169,7 +180,9 @@
             <div>
               <h3>Robo opens the locked treasure box</h3>
               <p class="service">AWS Secrets Manager</p>
-              <p>Storing, reading, and changing a secret without writing it into code.</p>
+              <p class="plain">Keeping a secret out of the code, and changing it without breaking anything.</p>
+              <p class="under"><span class="under-label">Under the hood</span>Secrets Manager encrypts each secret with an AWS KMS key and returns it only to callers whose IAM permissions allow <code>GetSecretValue</code>. Rotation runs on a schedule, through a Lambda function or managed rotation, so an app that reads the secret at runtime picks up the new value without a code change.</p>
+              <p class="src">Sources: <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html" rel="noopener">Encryption</a> · <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html" rel="noopener">Rotation</a></p>
               <p class="see">See it run: store, read, and rotate a secret</p>
             </div>
             <span class="status">Coming soon</span>
@@ -179,7 +192,9 @@
             <div>
               <h3>Staff use their school logins</h3>
               <p class="service">AWS Directory Service</p>
-              <p>Accounts for the people who work at the school, a different job from customer sign-in.</p>
+              <p class="plain">Accounts for the people who work at the school, a different job from customer sign-in.</p>
+              <p class="under"><span class="under-label">Under the hood</span>AWS Managed Microsoft AD runs real Active Directory domain controllers, a highly available pair across Availability Zones, for workforce logins and Windows workloads. AD Connector instead forwards requests to a directory you already run on premises. Customer sign-in (chapter 1) is a separate problem.</p>
+              <p class="src">Sources: <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html" rel="noopener">Managed Microsoft AD</a> · <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_ad_connector.html" rel="noopener">AD Connector</a></p>
               <p class="see">Explained, not run</p>
             </div>
             <span class="status">Coming soon</span>

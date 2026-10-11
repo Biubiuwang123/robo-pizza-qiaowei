@@ -151,3 +151,12 @@ section { padding: 40px 0; }
 
 .site-footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted); font-size: .9rem; }
 .site-footer p { margin: 0; }
+
+/* Chapter layers: plain line for everyone, "under the hood" for builders. */
+.chapter .plain { color: var(--text); font-size: 1rem; margin-bottom: 8px; }
+.chapter .under { font-size: .93rem; line-height: 1.55; border-left: 3px solid var(--green-soft); padding-left: 12px; margin: 8px 0; }
+.under-label { display: block; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--green); margin-bottom: 2px; }
+.chapter code { font: .86em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; white-space: nowrap; }
+.chapter .src { font-size: .8rem; }
+.chapter .src a { color: var(--muted); }
+.chapter .src a:hover { color: var(--accent); }
