@@ -59,4 +59,18 @@ when it was last checked.
 | Doppler | [Doppler docs](https://docs.doppler.com/docs) | 2026-10-11 |
 | The locked box replay | Real run of lab/locked_box.py in a personal AWS account on 2026-10-11; all resources deleted | 2026-10-11 |
 
-Ms. Rivera, Trusty Stamps, Maple Hill Elementary, and the `.example` party sites are made up.
+## Scene 4: The staff roster
+
+| Claim | Source | Checked |
+|---|---|---|
+| AWS Directory Service offers ways to use Microsoft Active Directory with AWS | [What is AWS Directory Service](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html) | 2026-10-11 |
+| Managed Microsoft AD runs a highly available pair of domain controllers in different Availability Zones | [Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html) | 2026-10-11 |
+| AD Connector forwards requests to an existing directory | [AD Connector](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_ad_connector.html) | 2026-10-11 |
+| LDAP and Kerberos | [RFC 4511](https://www.rfc-editor.org/rfc/rfc4511.html), [RFC 4120](https://www.rfc-editor.org/rfc/rfc4120.html) | 2026-10-11 |
+| Entra Domain Services offers domain join, LDAP and Kerberos as a managed domain | [Microsoft Learn](https://learn.microsoft.com/en-us/entra/identity/domain-services/overview) | 2026-10-11 |
+| Google Cloud Managed Microsoft AD | [Overview](https://cloud.google.com/managed-microsoft-ad/docs/overview) | 2026-10-11 |
+| OpenLDAP, FreeIPA | [openldap.org](https://www.openldap.org/), [freeipa.org](https://www.freeipa.org/) | 2026-10-11 |
+| Microsoft Entra ID, Okta Universal Directory, JumpCloud | [Entra ID](https://learn.microsoft.com/en-us/entra/fundamentals/whatis), [Okta](https://www.okta.com/products/universal-directory/), [JumpCloud](https://jumpcloud.com/) | 2026-10-11 |
+| The directory replay | Real anonymous LDAP searches of Forum Systems' public [test directory](https://www.forumsys.com/2022/05/10/online-ldap-test-server/) on 2026-10-11 | 2026-10-11 |
+
+Ms. Rivera, Mr. Okafor, Ms. Chen, Trusty Stamps, Maple Hill Elementary, and the `.example` party sites are made up.

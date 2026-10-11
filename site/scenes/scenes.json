@@ -28,10 +28,10 @@
     {
       "title": "The staff roster",
       "subtitle": "One list of who works here",
-      "play": "Add a new teacher once and watch every school system recognize her; remove her and access disappears everywhere.",
+      "play": "Add a new teacher once and watch every school system recognize him; remove someone and access disappears everywhere.",
       "aws": "AWS Directory Service",
       "page": "staff-roster.html",
-      "status": "soon"
+      "status": "live"
     }
   ]
 }

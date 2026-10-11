@@ -1,0 +1,24 @@
+# 1. Who is this? Look up one person
+$ ldapsearch -x -LLL -H ldap://ldap.forumsys.com -b "dc=example,dc=com" "(uid=euler)" cn objectClass
+   dn: uid=euler,dc=example,dc=com
+   objectClass: inetOrgPerson
+   objectClass: organizationalPerson
+   objectClass: person
+   objectClass: top
+   cn: Leonhard Euler
+
+# 2. Who is in this group?
+$ ldapsearch -x -LLL -H ldap://ldap.forumsys.com -b "dc=example,dc=com" "(ou=mathematicians)" uniqueMember
+   dn: ou=mathematicians,dc=example,dc=com
+   uniqueMember: uid=euclid,dc=example,dc=com
+   uniqueMember: uid=riemann,dc=example,dc=com
+   uniqueMember: uid=euler,dc=example,dc=com
+   uniqueMember: uid=gauss,dc=example,dc=com
+   uniqueMember: uid=test,dc=example,dc=com
+
+# 3. The question a system asks: is this person in the group?
+$ ldapsearch -x -LLL -H ldap://ldap.forumsys.com -b "dc=example,dc=com" "(&(ou=mathematicians)(uniqueMember=uid=euler,dc=example,dc=com))" dn
+   dn: ou=mathematicians,dc=example,dc=com
+$ ldapsearch -x -LLL -H ldap://ldap.forumsys.com -b "dc=example,dc=com" "(&(ou=mathematicians)(uniqueMember=uid=newton,dc=example,dc=com))" dn
+   (no match)
+   -> euler: yes, newton: no. One list answers every system the same way.

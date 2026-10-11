@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Staff Roster · Robo Orders Pizza</title>
+  <meta name="description" content="A hands-on scene about directories: add a teacher once, grant by group, remove someone everywhere, sign in once for the day, and survive a power cut.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="scene.css">
+  <link rel="stylesheet" href="staff-roster.css">
+</head>
+<body>
+  <!-- @include header -->
+
+  <main id="main" class="scene-layout wrap">
+    <div class="scene-main">
+      <header class="scene-head">
+        <p class="eyebrow">Scene 4 · One list of who works here</p>
+        <h1>The staff roster</h1>
+        <p class="lede">Scene 1 was the party site's sign-in for <em>visitors</em>. This one is for the people who <em>work</em> at Maple Hill, and the six school systems they use every day.</p>
+      </header>
+
+      <!-- Act 1 -->
+      <section class="act" id="act1" aria-labelledby="a1">
+        <h2 id="a1"><span class="act-num">1</span> A new teacher starts</h2>
+        <p>Mr. Okafor joins on Monday. He needs the five everyday systems.</p>
+        <div class="mode-row" role="tablist">
+          <button class="mode on" id="mode1A" role="tab">Without a roster</button>
+          <button class="mode" id="mode1B" role="tab">With a roster</button>
+        </div>
+        <div class="systems" id="sys1"></div>
+        <div class="build-row" id="rosterAddRow" hidden>
+          <button class="btn-small" id="rosterAdd">Add Mr. Okafor to the roster</button>
+        </div>
+        <p class="robo-says"><span class="robo-face" aria-hidden="true">🤖</span> <span id="robo1">Without a roster, every system keeps its own list. Add him to each one.</span></p>
+      </section>
+
+      <!-- Act 2 -->
+      <section class="act" id="act2" aria-labelledby="a2">
+        <h2 id="a2"><span class="act-num">2</span> Groups, not people</h2>
+        <p>Systems don't list people. They list <em>groups</em>, then ask the roster who's in them. Mr. Okafor also volunteers for the party committee.</p>
+        <div class="groups">
+          <label class="toggle"><input type="checkbox" id="gTeachers" checked disabled> Teachers</label>
+          <label class="toggle"><input type="checkbox" id="gParty"> Party committee</label>
+        </div>
+        <div class="systems" id="sys2"></div>
+        <p class="asks" id="asks">The pizza account asks the roster: <code id="askLine">is okafor in "Party committee"?</code> <b id="askAnswer">no</b></p>
+        <p class="caption">That question travels in <code>LDAP</code>, the language directories speak.</p>
+      </section>
+
+      <!-- Act 3 -->
+      <section class="act" id="act3" aria-labelledby="a3">
+        <h2 id="a3"><span class="act-num">3</span> Someone leaves</h2>
+        <p>Ms. Chen moves to another school in June. Her access has to go, everywhere.</p>
+        <div class="mode-row" role="tablist">
+          <button class="mode on" id="mode3A" role="tab">Without a roster</button>
+          <button class="mode" id="mode3B" role="tab">With a roster</button>
+        </div>
+        <div class="build-row">
+          <button class="btn-small" id="chenLeaves">Remove Ms. Chen</button>
+          <button class="btn-small ghost" id="september" hidden>Jump to September</button>
+        </div>
+        <div class="systems" id="sys3"></div>
+        <p class="verdict" id="leaveVerdict" hidden></p>
+      </section>
+
+      <!-- Act 4 -->
+      <section class="act" id="act4" aria-labelledby="a4">
+        <h2 id="a4"><span class="act-num">4</span> Sign in once for the day</h2>
+        <p>Ms. Rivera signs in at her classroom computer in the morning. The roster checks her password <em>once</em> and hands her a ticket good until evening.</p>
+        <button class="btn-small" id="morning">Sign in at the classroom computer</button>
+        <div class="ticket" id="ticket" hidden><b>Day ticket</b><span>Ms. Rivera · Maple Hill · good until 6 pm</span><code>Kerberos ticket</code></div>
+        <div class="choice-row" id="visits" hidden>
+          <button class="btn-choice" data-visit="Library">Library</button>
+          <button class="btn-choice" data-visit="Shared files">Shared files</button>
+          <button class="btn-choice" data-visit="Copy machine">Copy machine</button>
+        </div>
+        <p class="verdict" id="visitVerdict" hidden></p>
+      </section>
+
+      <!-- Act 5 -->
+      <section class="act" id="act5" aria-labelledby="a5">
+        <h2 id="a5"><span class="act-num">5</span> The roster can't go down</h2>
+        <p>If the roster is unreachable, nobody can sign in to anything. The roster lives in the main building.</p>
+        <label class="toggle"><input type="checkbox" id="secondCopy"> Keep a second copy of the roster in the gym building</label>
+        <div class="buildings">
+          <div class="building" id="bMain"><b>Main building</b><span>roster copy 1</span></div>
+          <div class="building off" id="bGym"><b>Gym building</b><span>no copy</span></div>
+        </div>
+        <button class="btn-small" id="powerCut">Power cut in the main building</button>
+        <p class="verdict" id="powerVerdict" hidden></p>
+        <p class="caption">The copies are <code>domain controllers</code>; a managed directory keeps them in separate <code>Availability Zones</code>.</p>
+      </section>
+
+      <!-- Wrap-up -->
+      <section class="act" id="wrap" aria-labelledby="aw">
+        <h2 id="aw">What you just used</h2>
+        <div class="glossary">
+          <div><b>Staff roster</b><span>directory, most often Microsoft Active Directory</span></div>
+          <div><b>Groups</b><span>security groups</span></div>
+          <div><b>"Is he in the group?"</b><span>an LDAP query</span></div>
+          <div><b>Forgotten accounts</b><span>orphaned accounts</span></div>
+          <div><b>Day ticket</b><span>Kerberos ticket, single sign-on</span></div>
+          <div><b>Second copy</b><span>a second domain controller</span></div>
+          <div><b>Visitors vs. staff</b><span>customer identity (Scene 1) vs. workforce identity</span></div>
+        </div>
+
+        <h3>Who builds staff rosters</h3>
+        <ul class="who">
+          <li><b>Run your own</b>: Microsoft Active Directory on your own servers, or open-source <a href="https://www.openldap.org/" rel="noopener">OpenLDAP</a> and <a href="https://www.freeipa.org/" rel="noopener">FreeIPA</a>.</li>
+          <li><b>Active Directory, managed in a cloud</b>: <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html" rel="noopener">AWS Directory Service</a>, <a href="https://learn.microsoft.com/en-us/entra/identity/domain-services/overview" rel="noopener">Microsoft Entra Domain Services</a>, <a href="https://cloud.google.com/managed-microsoft-ad/docs/overview" rel="noopener">Google Cloud Managed Microsoft AD</a>.</li>
+          <li><b>Directories born in the cloud</b>: <a href="https://learn.microsoft.com/en-us/entra/fundamentals/whatis" rel="noopener">Microsoft Entra ID</a>, <a href="https://www.okta.com/products/universal-directory/" rel="noopener">Okta Universal Directory</a>, <a href="https://jumpcloud.com/" rel="noopener">JumpCloud</a>.</li>
+          <li><b>Already have a roster?</b> Connect to it instead of copying it: AWS's <a href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_ad_connector.html" rel="noopener">AD Connector</a> forwards questions to a directory you already run.</li>
+        </ul>
+
+        <details class="peek">
+          <summary>Peek at a real directory</summary>
+          <p>Real LDAP, the same questions a school system would ask, sent to Forum Systems' public read-only <a href="https://www.forumsys.com/2022/05/10/online-ldap-test-server/" rel="noopener">test directory</a> (its sample people are famous mathematicians and scientists). Anonymous searches only; nothing is changed.</p>
+<pre class="replay"><code><!-- @replay staff-roster --></code></pre>
+          <p class="caption">Run it yourself: <a href="https://github.com/Biubiuwang123/robo-pizza-qiaowei/blob/main/lab/staff_roster.py" rel="noopener">lab/staff_roster.py</a>. A managed Active Directory answers the same questions, inside your private network.</p>
+        </details>
+      </section>
+    </div>
+
+    <aside class="mvp" id="mvpBox" aria-labelledby="mvp-title">
+      <h2 id="mvp-title">The smallest staff roster that works</h2>
+      <p class="mvp-sub">Ticks as you play</p>
+      <ol class="mvp-list" id="mvp">
+        <li data-k="one">Keeps one list every system checks</li>
+        <li data-k="groups">Grants access by group, not person by person</li>
+        <li data-k="lookup">Answers "is this person in that group?" for any system</li>
+        <li data-k="remove">Removes someone everywhere at once</li>
+        <li data-k="ticket">Checks the password once, then hands out a day ticket</li>
+        <li data-k="copies">Keeps a second copy, so sign-in never goes down</li>
+      </ol>
+      <p class="mvp-done" id="mvpDone" hidden>That's the whole product. Everything else is scale and polish.</p>
+    </aside>
+  </main>
+
+  <a class="mvp-pill" id="mvpPill" href="#mvpBox">Staff roster: 0/6</a>
+
+  <!-- @include scene-nav -->
+
+  <!-- @include footer -->
+
+  <script src="scene-kit.js"></script>
+  <script src="staff-roster.js"></script>
+</body>
+</html>

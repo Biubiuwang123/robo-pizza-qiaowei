@@ -33,4 +33,4 @@ Early build. Chapters arrive one at a time.
 - [x] Scene 1 — Who's at the door? (complete)
 - [x] Scene 2 — Is that badge real? (complete)
 - [x] Scene 3 — The locked box (complete)
-- [ ] Scene 4 — The staff roster
+- [x] Scene 4 — The staff roster (in review)
