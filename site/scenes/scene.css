@@ -151,3 +151,4 @@ input[type="range"] { width: 100%; accent-color: var(--accent); margin: 6px 0 10
 @media (max-width: 900px) { .mvp { max-height: none; } }
 .jump { margin: 4px 0 0; font-size: .95rem; }
 .jump a { color: var(--green); font-weight: 600; }
+.part-break, .act, .mvp { scroll-margin-top: 76px; }
