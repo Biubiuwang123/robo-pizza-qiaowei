@@ -37,7 +37,7 @@ Early build. Chapters arrive one at a time.
 
 - [x] Landing page — live at https://robo.qiaowei.wang
 - [ ] Chapter 1 — Cognito
-- [ ] Chapter 2 — ACM
+- [x] Chapter 2 — ACM
 - [ ] Chapter 3 — Private CA
 - [ ] Chapter 4 — mTLS
 - [ ] Chapter 5 — IAM Roles Anywhere + STS

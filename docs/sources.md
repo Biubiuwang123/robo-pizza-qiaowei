@@ -21,3 +21,19 @@ when it was last checked, because prices and features change.
 | 6 Secrets Manager | Rotation via a Lambda function or managed rotation | [Rotation](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html) | 2026-10-11 |
 | 7 Directory Service | Managed Microsoft AD: a highly available pair of domain controllers across AZs | [Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html) | 2026-10-11 |
 | 7 Directory Service | AD Connector forwards to an existing directory | [AD Connector](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_ad_connector.html) | 2026-10-11 |
+
+## Chapter 2 page (ACM)
+
+| Claim | Source | Checked |
+|---|---|---|
+| Non-exportable public certs: no cost; exportable $7.00/FQDN, $79.00/wildcard at issuance and renewal; ACME $1.00/$0.50/$0.25 per FQDN tiers, wildcards $5.00/$2.50, max 45 days | [ACM pricing](https://aws.amazon.com/certificate-manager/pricing/) | 2026-10-11 |
+| ACM certificates are valid for 198 days | [Certificate characteristics](https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate-characteristics.html) | 2026-10-11 |
+| 198-day certificates renew 45 days before expiry if the CNAME resolves and the cert is in use | [DNS renewal](https://docs.aws.amazon.com/acm/latest/userguide/dns-renewal-validation.html) | 2026-10-11 |
+| Public certificates are logged to Certificate Transparency logs | [ACM best practices](https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html) | 2026-10-11 |
+| Max public TLS validity falls from 398 to 47 days, March 2026 to March 2029 | [CA/B Forum Ballot SC-081v3](https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/) | 2026-10-11 |
+| Let's Encrypt: 90-day default, 6-day opt-in | [Let's Encrypt FAQ](https://letsencrypt.org/docs/faq/) | 2026-10-11 |
+| cert-manager issues and renews certificates in Kubernetes | [cert-manager docs](https://cert-manager.io/docs/) | 2026-10-11 |
+| Cloudflare Universal SSL: free edge certificates | [Cloudflare docs](https://developers.cloudflare.com/ssl/edge-certificates/universal-ssl/) | 2026-10-11 |
+| Google-managed certificates for Google Cloud load balancers | [Certificate Manager overview](https://cloud.google.com/certificate-manager/docs/overview) | 2026-10-11 |
+| Free App Service managed certificate | [Azure docs](https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate) | 2026-10-11 |
+| Chain, key type, validity of this site's certificate | Observed with openssl on 2026-10-11 | 2026-10-11 |
