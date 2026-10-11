@@ -215,3 +215,6 @@ td:first-child { font-weight: 600; min-width: 9em; }
 .chapter h3 a { color: inherit; text-decoration: none; }
 .chapter h3 a:hover { color: var(--accent); }
 .status.live { background: var(--green-soft); color: var(--green); font-weight: 600; text-decoration: none; }
+.card-grid.three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) { .card-grid.three { grid-template-columns: 1fr; } }
+.chapter .aws-name { font-size: .82rem; color: var(--muted); margin-top: 6px; }

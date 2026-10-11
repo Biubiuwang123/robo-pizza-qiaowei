@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Is That Badge Real? · Robo Orders Pizza</title>
+  <meta name="description" content="A hands-on scene about certificates: inspect a website's badge, catch two impostors, earn a badge, and fast-forward time.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="scene.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="../" aria-label="Robo Orders Pizza, home">
+        <img src="../assets/favicon.svg" alt="" width="28" height="28">
+        <span>Robo Orders Pizza</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="../#scenes">Scenes</a>
+        <a href="../#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="scene-layout wrap">
+    <div class="scene-main">
+      <header class="scene-head">
+        <p class="eyebrow">Scene 2 · Badges for websites and robots</p>
+        <h1>Is that badge real?</h1>
+        <p class="lede">The teacher is about to sign in to the class party site. Before she types her password, Robo wants to check the site's badge.</p>
+      </header>
+
+      <!-- Act 1: inspect -->
+      <section class="act" id="act1" aria-labelledby="a1">
+        <h2 id="a1"><span class="act-num">1</span> Check the badge</h2>
+        <div class="browser" id="browser1">
+          <div class="browser-bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <button class="lock" id="lock1" aria-label="View this site's badge">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke-width="1.6"/></svg>
+            </button>
+            <span class="url">https://<b>party.maplehill.example</b></span>
+          </div>
+          <div class="browser-body">
+            <p class="fake-site-title">Maple Hill Class Party 🍕</p>
+            <div class="fake-form"><span>Teacher sign-in</span><i></i><i></i></div>
+          </div>
+        </div>
+        <p class="robo-says"><span class="robo-face" aria-hidden="true">🤖</span> <span id="robo1">Tap the padlock in the address bar to see the badge.</span></p>
+
+        <div class="badge-card" id="badge1" hidden>
+          <div class="badge-head">Website badge</div>
+          <ul class="checks-list">
+            <li class="ok"><span class="mark">✓</span><span><b>Issued to</b> party.maplehill.example<small>matches the address bar · <code>subject</code></small></span></li>
+            <li class="ok"><span class="mark">✓</span><span><b>Vouched for by</b> Trusty Stamps<small>a stamp office your browser already trusts · <code>issuer</code></small></span></li>
+            <li class="ok"><span class="mark">✓</span><span><b>Seal</b> unbroken<small>any change to the badge would break it · <code>signature</code></small></span></li>
+            <li class="ok"><span class="mark">✓</span><span><b>Good until</b> <span id="expiry1">in 198 days</span><small><code>not after</code></small></span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Act 2: impostors -->
+      <section class="act locked" id="act2" aria-labelledby="a2">
+        <h2 id="a2"><span class="act-num">2</span> Catch the impostors</h2>
+        <p>Two fake party sites want the teacher's password. Pick one and let Robo check it.</p>
+        <div class="choice-row">
+          <button class="btn-choice" data-imp="a">Impostor A<small>made its own badge</small></button>
+          <button class="btn-choice" data-imp="b">Impostor B<small>copied the real badge</small></button>
+        </div>
+        <div class="badge-card bad" id="impA" hidden>
+          <div class="badge-head">Impostor A · <span class="url-inline">party.maplehi11.example</span></div>
+          <ul class="checks-list">
+            <li class="bad"><span class="mark">✗</span><span><b>Issued to</b> party.maplehi11.example<small>look closely: those are ones, not Ls</small></span></li>
+            <li class="bad"><span class="mark">✗</span><span><b>Vouched for by</b> itself<small>nobody your browser trusts stamped it · <code>self-signed</code></small></span></li>
+          </ul>
+          <p class="verdict bad">Browser warning. The teacher never sees a sign-in box.</p>
+        </div>
+        <div class="badge-card bad" id="impB" hidden>
+          <div class="badge-head">Impostor B · <span class="url-inline">party.maplehill.example</span></div>
+          <ul class="checks-list">
+            <li class="ok"><span class="mark">✓</span><span><b>Issued to</b> party.maplehill.example<small>it's a perfect copy</small></span></li>
+            <li class="ok"><span class="mark">✓</span><span><b>Vouched for by</b> Trusty Stamps</span></li>
+            <li class="bad" id="challenge"><span class="mark">?</span><span><b>Robo's challenge</b> "Sign this random number: <code id="nonce">48213</code>"<small>only the holder of the badge's secret key can · <code>private key</code></small></span></li>
+          </ul>
+          <button class="btn-small" id="runChallenge">Send the challenge</button>
+          <p class="verdict bad" id="verdictB" hidden>No valid signature. A badge is public, the key behind it is not, so a copy proves nothing.</p>
+        </div>
+      </section>
+
+      <!-- Act 3: earn a badge -->
+      <section class="act locked" id="act3" aria-labelledby="a3">
+        <h2 id="a3"><span class="act-num">3</span> Earn a badge</h2>
+        <p>Now you run the real party site. Anyone can <em>ask</em> Trusty Stamps for a badge that says party.maplehill.example, so how does it know you're the owner?</p>
+        <div class="door-scene">
+          <div class="door" id="door">
+            <span class="door-label">party.maplehill.example's front door</span>
+            <span class="note" id="note" hidden>Note: <code>7f3a…c91e</code></span>
+          </div>
+          <div class="office">
+            <p class="office-says" id="office">"Pin this note on your front door. Only the real owner can."</p>
+            <button class="btn-small" id="pinNote">Pin the note</button>
+            <button class="btn-small ghost" id="impostorAsk">Let Impostor B ask too</button>
+          </div>
+        </div>
+        <p class="caption">The "front door" is the domain's public notice board (<code>DNS</code>). The note is a <code>CNAME</code> record.</p>
+      </section>
+
+      <!-- Act 4: time -->
+      <section class="act locked" id="act4" aria-labelledby="a4">
+        <h2 id="a4"><span class="act-num">4</span> Fast-forward time</h2>
+        <p>Badges expire on purpose, so a stolen key stops working eventually. Drag the days forward and see what keeps the party site up.</p>
+
+        <div class="controls">
+          <label class="toggle"><input type="checkbox" id="autoRenew" checked> Re-stamp automatically</label>
+          <label class="toggle"><input type="checkbox" id="noteStays" checked> Note stays on the door</label>
+          <label class="toggle"><input type="checkbox" id="rules2029"> Use the 2029 rules (badges last 47 days instead of 198)</label>
+        </div>
+
+        <label class="slider-label" for="days">Day <output id="dayOut">0</output> of 400</label>
+        <input type="range" id="days" min="0" max="400" value="0" step="1">
+
+        <div class="timeline" id="timeline" aria-hidden="true"></div>
+        <div class="tl-legend"><span><i class="lg valid"></i>badge valid</span><span><i class="lg renew"></i>re-stamped</span><span><i class="lg down"></i>site down</span></div>
+
+        <div class="status-row">
+          <div class="mini-browser" id="mini">
+            <span class="mini-lock" id="miniLock">🔒</span>
+            <span id="miniText">party.maplehill.example</span>
+          </div>
+          <p class="robo-says small"><span class="robo-face" aria-hidden="true">🤖</span> <span id="robo4">Drag the slider.</span></p>
+        </div>
+        <p class="stats" id="stats"></p>
+      </section>
+
+      <!-- Wrap-up -->
+      <section class="act locked" id="act5" aria-labelledby="a5">
+        <h2 id="a5">What you just used</h2>
+        <div class="glossary">
+          <div><b>Badge</b><span>certificate</span></div>
+          <div><b>Trusty Stamps</b><span>certificate authority</span></div>
+          <div><b>Seal</b><span>digital signature</span></div>
+          <div><b>Robo's challenge</b><span>proof you hold the private key, part of the TLS handshake</span></div>
+          <div><b>Note on the door</b><span>DNS validation</span></div>
+          <div><b>Re-stamping</b><span>managed renewal</span></div>
+        </div>
+
+        <h3>Who runs badge offices</h3>
+        <ul class="who">
+          <li><b>Public stamp offices</b> that every browser trusts, such as <a href="https://letsencrypt.org/docs/faq/" rel="noopener">Let's Encrypt</a>.</li>
+          <li><b>Badge office as a service</b>: request, prove, and re-stamp handled for you. On AWS that's <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html" rel="noopener">AWS Certificate Manager</a>. Cloudflare, Google Cloud and Azure offer their own.</li>
+          <li><b>A private stamp office</b> for badges only your own systems trust, like the one Robo will carry to the kitchen. That's the next act, with <a href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html" rel="noopener">AWS Private CA</a>.</li>
+        </ul>
+
+        <details class="peek">
+          <summary>Peek at the real badge on this page</summary>
+          <p>This page's padlock is a real badge from AWS Certificate Manager. Here's its chain, from a terminal:</p>
+<pre class="replay"><code><span class="prompt">$</span> openssl s_client -connect robo.qiaowei.wang:443 -showcerts
+ 0 s:CN=robo.qiaowei.wang
+   i:C=US, O=Amazon, CN=Amazon ECDSA 256 M04
+ 1 s:C=US, O=Amazon, CN=Amazon ECDSA 256 M04
+   i:C=US, O=Amazon, CN=Amazon Root CA 3
+ 2 s:C=US, O=Amazon, CN=Amazon Root CA 3
+   i:C=US, ST=Arizona, L=Scottsdale, O=Starfield Technologies, Inc., CN=Starfield Services Root Certificate Authority - G2</code></pre>
+          <p class="caption">Each badge is vouched for by the one below it, down to a stamp office built into your browser. Every public badge is also listed in public logs: <a href="https://crt.sh/?q=robo.qiaowei.wang" rel="noopener">see this one</a>.</p>
+        </details>
+      </section>
+    </div>
+
+    <!-- The minimum badge office checklist -->
+    <aside class="mvp" id="mvpBox" aria-labelledby="mvp-title">
+      <h2 id="mvp-title">The smallest badge office that works</h2>
+      <p class="mvp-sub">Ticks as you play</p>
+      <ol class="mvp-list" id="mvp">
+        <li data-k="who">Says who the badge belongs to</li>
+        <li data-k="vouch">Says who vouches for it</li>
+        <li data-k="seal">Has a seal that can't be forged</li>
+        <li data-k="key">Proves the holder has the secret key</li>
+        <li data-k="own">Checks the requester owns the name</li>
+        <li data-k="expire">Expires on purpose</li>
+        <li data-k="renew">Re-stamps before expiry, without a human</li>
+      </ol>
+      <p class="mvp-done" id="mvpDone" hidden>That's the whole product. Everything else is scale and polish.</p>
+    </aside>
+  </main>
+
+  <a class="mvp-pill" id="mvpPill" href="#mvpBox">Badge office: 0/7</a>
+
+  <nav class="scene-nav wrap" aria-label="Scenes">
+    <a href="../#scenes">&larr; All scenes</a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© 2026 Qiaowei Wang · Personal project, public sources only · Built with Claude Code</p>
+    </div>
+  </footer>
+
+  <script src="badges.js"></script>
+</body>
+</html>
