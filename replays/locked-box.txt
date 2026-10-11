@@ -1,0 +1,21 @@
+# 1. Put the pizza shop's password in the box
+$ aws secretsmanager create-secret --name robo-pizza/pizza-shop-login
+   ARN: arn:aws:secretsmanager:us-east-1:<account>:secret:robo-pizza/pizza-shop-login-<id>
+   Encrypted with: aws/secretsmanager (AWS managed key)
+
+# 2. The list: Robo may open the box, the hall monitor may not
+   Robo          GetSecretValue on the box -> allowed
+   Hall monitor  GetSecretValue on the box -> implicitDeny
+   (evaluated by IAM's policy simulator; anything not explicitly allowed is denied)
+
+# 3. Ask the box at the moment the password is needed
+$ aws secretsmanager get-secret-value --secret-id robo-pizza/pizza-shop-login
+   password: _•••••••••••••••   version stages: ['AWSCURRENT']
+
+# 4. Change the combination
+   version 2eecbe77…  AWSPREVIOUS
+   version 3c9d74c9…  AWSCURRENT
+   Robo's next ask gets: c•••••••••••••••  (the new one: True)
+
+# 5. Clean up
+   deleted robo-pizza/pizza-shop-login and roles robo-pizza-robo, robo-pizza-hall-monitor

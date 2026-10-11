@@ -32,5 +32,5 @@ Early build. Chapters arrive one at a time.
 - [x] Landing page — live at https://robo.qiaowei.wang
 - [ ] Scene 1 — Who's at the door?
 - [x] Scene 2 — Is that badge real? (complete)
-- [ ] Scene 3 — The locked box
+- [x] Scene 3 — The locked box (in review)
 - [ ] Scene 4 — The staff roster

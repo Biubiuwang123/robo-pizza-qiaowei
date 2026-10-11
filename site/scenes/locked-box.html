@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Locked Box · Robo Orders Pizza</title>
+  <meta name="description" content="A hands-on scene about secrets: get a password out of the instructions, decide who may open the box, and change the combination without breaking anything.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="scene.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="../" aria-label="Robo Orders Pizza, home">
+        <img src="../assets/favicon.svg" alt="" width="28" height="28">
+        <span>Robo Orders Pizza</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="../#scenes">Scenes</a>
+        <a href="../#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="scene-layout wrap">
+    <div class="scene-main">
+      <header class="scene-head">
+        <p class="eyebrow">Scene 3 · Keeping secrets out of sight</p>
+        <h1>The locked box</h1>
+        <p class="lede">To order pizza, Robo has to log in to the pizza shop's website. That means Robo needs a password, and a password is only useful while it stays secret.</p>
+      </header>
+
+      <!-- Act 1 -->
+      <section class="act" id="act1" aria-labelledby="a1">
+        <h2 id="a1"><span class="act-num">1</span> The password on the instruction card</h2>
+        <p>This is how Robo was first set up: the password is written right into its instructions.</p>
+        <div class="card-note" id="card">
+          <p class="card-title">Robo's instructions</p>
+          <ol>
+            <li>Open the pizza shop's website</li>
+            <li id="loginLine">Log in as <code>maple-hill-party</code>, password <code class="secret-inline">pepperoni-42</code></li>
+            <li>Order 6 large, half cheese</li>
+          </ol>
+        </div>
+        <div class="build-row">
+          <button class="btn-small" id="share">Share Robo's instructions with the robotics club</button>
+          <button class="btn-small ghost" id="move" disabled>Move the password into a locked box</button>
+        </div>
+        <div class="leak" id="leak" hidden>
+          <p><b>14 club members</b> copied the instructions. One posted them on the club's website. A search engine found the page.</p>
+          <p>Overnight: <b>9 pizza orders</b> nobody at Maple Hill placed.</p>
+        </div>
+        <p class="robo-says"><span class="robo-face" aria-hidden="true">🤖</span> <span id="robo1">Instructions get copied, shared, and posted. Anything written in them is no longer secret.</span></p>
+        <p class="caption">A password written into the instructions is a <code>hard-coded secret</code>. It happens so often that code-hosting sites <a href="https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning" rel="noopener">scan for them</a>.</p>
+      </section>
+
+      <!-- Act 2 -->
+      <section class="act" id="act2" aria-labelledby="a2">
+        <h2 id="a2"><span class="act-num">2</span> Who may open the box?</h2>
+        <p>The box keeps the password scrambled. Only the key keeper can unscramble it, and only for someone on the list.</p>
+        <div class="box-scene">
+          <div class="the-box" aria-hidden="true">
+            <span class="box-lid"></span>
+            <span class="box-body"><span class="scrambled" id="scrambled">x7#Qe9!vT2@m</span></span>
+            <span class="box-tag">pizza-shop-login</span>
+          </div>
+          <div class="box-side">
+            <div class="rule"><b>The list</b><span>Robo may open <i>pizza-shop-login</i>. Nobody else.</span><code>access policy</code></div>
+            <div class="rule"><b>Key keeper</b><span>Holds the unscramble key, kept apart from the box.</span><code>encryption key</code></div>
+          </div>
+        </div>
+        <p>Who's asking?</p>
+        <div class="choice-row">
+          <button class="btn-choice" data-who="robo">Robo<small>on the list</small></button>
+          <button class="btn-choice" data-who="hall">Hall-monitor bot<small>works here, not on the list</small></button>
+          <button class="btn-choice" data-who="window">Someone at the window<small>doesn't work here</small></button>
+        </div>
+        <p class="verdict" id="askVerdict" hidden></p>
+        <div class="logbook">
+          <p class="logbook-title">Logbook <code>audit log</code></p>
+          <ol id="log"><li class="empty">No one has asked yet.</li></ol>
+        </div>
+      </section>
+
+      <!-- Act 3 -->
+      <section class="act" id="act3" aria-labelledby="a3">
+        <h2 id="a3"><span class="act-num">3</span> Change the combination</h2>
+        <p>Passwords should change now and then, and right away if one leaks. Robo orders a pizza every couple of seconds. Change the password and keep the orders going.</p>
+        <div class="orders" aria-live="polite">
+          <span class="orders-label">Robo's orders</span>
+          <span class="order-dots" id="dots"></span>
+        </div>
+        <div class="choice-row">
+          <button class="btn-choice" id="byHand">Change it by hand<small>new password at the shop, then tell Robo</small></button>
+          <button class="btn-choice" id="byBox">Let the box change it<small>Robo asks the box before every order</small></button>
+        </div>
+        <button class="btn-small ghost" id="fixRobo" hidden>Update Robo by hand</button>
+
+        <ol class="rotate-steps" id="steps">
+          <li data-s="1"><b>Make a new combination</b><span>stored next to the old one, labelled "pending"</span><code>createSecret</code></li>
+          <li data-s="2"><b>Set it at the pizza shop</b><code>setSecret</code></li>
+          <li data-s="3"><b>Try it once</b><code>testSecret</code></li>
+          <li data-s="4"><b>Flip the labels</b><span>new becomes "current", old is kept as "previous"</span><code>finishSecret</code></li>
+        </ol>
+        <div class="versions" id="versions">
+          <span class="ver" id="v1">v1 <i>current</i></span>
+        </div>
+        <p class="robo-says small"><span class="robo-face" aria-hidden="true">🤖</span> <span id="robo3">Pick a way to change it.</span></p>
+      </section>
+
+      <!-- Wrap-up -->
+      <section class="act" id="wrap" aria-labelledby="aw">
+        <h2 id="aw">What you just used</h2>
+        <div class="glossary">
+          <div><b>Locked box</b><span>secrets manager, or vault</span></div>
+          <div><b>Password on the card</b><span>hard-coded secret</span></div>
+          <div><b>Scrambled inside</b><span>encryption at rest</span></div>
+          <div><b>Key keeper</b><span>key management service</span></div>
+          <div><b>The list</b><span>access policy</span></div>
+          <div><b>Logbook</b><span>audit log</span></div>
+          <div><b>Asking before each order</b><span>fetching the secret at runtime</span></div>
+          <div><b>Changing the combination</b><span>rotation</span></div>
+          <div><b>"Current" and "previous"</b><span>version labels</span></div>
+        </div>
+
+        <h3>Who builds locked boxes</h3>
+        <ul class="who">
+          <li><b>Run your own</b> with <a href="https://developer.hashicorp.com/vault/docs/secrets/kv" rel="noopener">HashiCorp Vault</a>.</li>
+          <li><b>Built into each cloud</b>: <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html" rel="noopener">AWS Secrets Manager</a>, <a href="https://cloud.google.com/secret-manager/docs/overview" rel="noopener">Google Cloud Secret Manager</a>, <a href="https://learn.microsoft.com/en-us/azure/key-vault/secrets/about-secrets" rel="noopener">Azure Key Vault</a>.</li>
+          <li><b>Made for developer teams</b>, across clouds and laptops: <a href="https://docs.doppler.com/docs" rel="noopener">Doppler</a> and others.</li>
+        </ul>
+
+        <details class="peek">
+          <summary>Peek at a real locked box</summary>
+          <p>This scene, for real, in AWS Secrets Manager: a box created, two names checked against the list by AWS's own policy evaluator, the combination changed, and everything deleted afterwards. The password was random and only its first letter is shown.</p>
+<pre class="replay"><code># 1. Put the pizza shop&#x27;s password in the box
+$ aws secretsmanager create-secret --name robo-pizza/pizza-shop-login
+   ARN: arn:aws:secretsmanager:us-east-1:&lt;account&gt;:secret:robo-pizza/pizza-shop-login-&lt;id&gt;
+   Encrypted with: aws/secretsmanager (AWS managed key)
+
+# 2. The list: Robo may open the box, the hall monitor may not
+   Robo          GetSecretValue on the box -&gt; allowed
+   Hall monitor  GetSecretValue on the box -&gt; implicitDeny
+   (evaluated by IAM&#x27;s policy simulator; anything not explicitly allowed is denied)
+
+# 3. Ask the box at the moment the password is needed
+$ aws secretsmanager get-secret-value --secret-id robo-pizza/pizza-shop-login
+   password: _•••••••••••••••   version stages: [&#x27;AWSCURRENT&#x27;]
+
+# 4. Change the combination
+   version 2eecbe77…  AWSPREVIOUS
+   version 3c9d74c9…  AWSCURRENT
+   Robo&#x27;s next ask gets: c•••••••••••••••  (the new one: True)
+
+# 5. Clean up
+   deleted robo-pizza/pizza-shop-login and roles robo-pizza-robo, robo-pizza-hall-monitor</code></pre>
+          <p class="caption">Run it yourself: <a href="https://github.com/Biubiuwang123/robo-pizza-qiaowei/blob/main/lab/locked_box.py" rel="noopener">lab/locked_box.py</a>.</p>
+        </details>
+      </section>
+    </div>
+
+    <aside class="mvp" id="mvpBox" aria-labelledby="mvp-title">
+      <h2 id="mvp-title">The smallest locked box that works</h2>
+      <p class="mvp-sub">Ticks as you play</p>
+      <ol class="mvp-list" id="mvp">
+        <li data-k="out">Keeps the secret out of the instructions</li>
+        <li data-k="scramble">Keeps it scrambled, with the key kept elsewhere</li>
+        <li data-k="list">Opens only for those on the list</li>
+        <li data-k="log">Writes every attempt in a logbook</li>
+        <li data-k="ask">Hands the secret over at the moment it's needed</li>
+        <li data-k="rotate">Changes the combination without a human</li>
+        <li data-k="labels">Labels old and new, so nothing breaks mid-change</li>
+      </ol>
+      <p class="mvp-done" id="mvpDone" hidden>That's the whole product. Everything else is scale and polish.</p>
+    </aside>
+  </main>
+
+  <a class="mvp-pill" id="mvpPill" href="#mvpBox">Locked box: 0/7</a>
+
+  <nav class="scene-nav wrap" aria-label="Scenes">
+    <a href="../#scenes">&larr; All scenes</a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© 2026 Qiaowei Wang · Personal project, public sources only · Built with Claude Code</p>
+    </div>
+  </footer>
+
+  <script src="locked-box.js"></script>
+</body>
+</html>

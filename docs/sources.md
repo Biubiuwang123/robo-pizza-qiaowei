@@ -24,4 +24,21 @@ when it was last checked.
 | Certificate and CRL format | [RFC 5280](https://www.rfc-editor.org/rfc/rfc5280.html) | 2026-10-11 |
 | The private badge office replay | Real run of lab/badge_office.py on 2026-10-11 | 2026-10-11 |
 
+## Scene 3: The locked box
+
+| Claim | Source | Checked |
+|---|---|---|
+| Plaintext secrets in code should be moved to a secrets manager | [Move hardcoded secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/hardcoded.html) | 2026-10-11 |
+| Code hosts scan for leaked secrets | [GitHub secret scanning](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning) | 2026-10-11 |
+| Secrets are protected with envelope encryption using KMS keys | [Secrets Manager encryption](https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html) | 2026-10-11 |
+| API calls, including reads, are recorded by CloudTrail | [Secrets Manager and CloudTrail](https://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring-cloudtrail.html) | 2026-10-11 |
+| Rotation has four steps: createSecret, setSecret, testSecret, finishSecret | [Rotation function steps](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotate-secrets_lambda-functions.html) | 2026-10-11 |
+| Versions are labelled AWSCURRENT, AWSPENDING, AWSPREVIOUS | [Secrets Manager encryption](https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html) | 2026-10-11 |
+| AWS Secrets Manager overview | [What is Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) | 2026-10-11 |
+| HashiCorp Vault key/value secrets | [Vault KV docs](https://developer.hashicorp.com/vault/docs/secrets/kv) | 2026-10-11 |
+| Google Cloud Secret Manager | [Overview](https://cloud.google.com/secret-manager/docs/overview) | 2026-10-11 |
+| Azure Key Vault stores secrets such as passwords | [About Key Vault secrets](https://learn.microsoft.com/en-us/azure/key-vault/secrets/about-secrets) | 2026-10-11 |
+| Doppler | [Doppler docs](https://docs.doppler.com/docs) | 2026-10-11 |
+| The locked box replay | Real run of lab/locked_box.py in a personal AWS account on 2026-10-11; all resources deleted | 2026-10-11 |
+
 Trusty Stamps, Maple Hill Elementary, and the `.example` party sites are made up.
