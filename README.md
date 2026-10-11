@@ -1,5 +1,7 @@
 # Robo Orders Pizza
 
+**Live: https://robo.qiaowei.wang**
+
 **A plain-language, hands-on tour of how identity, certificates, and secrets fit together on AWS — told through a robot ordering pizza.**
 
 > I work at Amazon. This is a personal learning project built only from public AWS
@@ -33,7 +35,7 @@ replay of a real run).
 
 Early build. Chapters arrive one at a time.
 
-- [x] Landing page (local preview)
+- [x] Landing page — live at https://robo.qiaowei.wang
 - [ ] Chapter 1 — Cognito
 - [ ] Chapter 2 — ACM
 - [ ] Chapter 3 — Private CA
