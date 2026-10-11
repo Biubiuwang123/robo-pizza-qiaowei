@@ -214,6 +214,11 @@
     }
   });
 
+  // Visitors can skip straight to part two (link, or a #part2 address).
+  function openPart2() { unlock("act5"); }
+  $("jump2").addEventListener("click", openPart2);
+  if (location.hash === "#part2") openPart2();
+
   ["autoRenew", "noteStays", "rules2029"].forEach((id) => $(id).addEventListener("change", draw));
   $("days").addEventListener("input", draw);
   draw();
