@@ -33,7 +33,7 @@ replay of a real run).
 
 Early build. Chapters arrive one at a time.
 
-- [ ] Landing page
+- [x] Landing page (local preview)
 - [ ] Chapter 1 — Cognito
 - [ ] Chapter 2 — ACM
 - [ ] Chapter 3 — Private CA

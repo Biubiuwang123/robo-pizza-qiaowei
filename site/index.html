@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robo Orders Pizza</title>
+  <meta name="description" content="A plain-language, hands-on tour of how identity, certificates, and secrets fit together on AWS — told through a robot ordering pizza.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="./" aria-label="Robo Orders Pizza, home">
+        <img src="assets/favicon.svg" alt="" width="28" height="28">
+        <span>Robo Orders Pizza</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="#story">Story</a>
+        <a href="#chapters">Chapters</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">A hands-on tour of identity on AWS</p>
+          <h1>How does a robot prove who it is, and order pizza safely?</h1>
+          <p class="lede">
+            Seven short chapters explain how sign-in, certificates, permissions, and secrets fit
+            together on AWS. Each one is a step in a robot's errand, explained three ways,
+            priced from public list prices, compared with alternatives, and shown running.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#story">Read the story</a>
+            <a class="btn btn-ghost" href="#chapters">Jump to a chapter</a>
+          </div>
+        </div>
+        <figure class="hero-art" aria-hidden="true">
+          <!-- Original illustration: Robo carrying a pizza box. -->
+          <svg viewBox="0 0 320 300" role="img">
+            <ellipse cx="160" cy="282" rx="110" ry="10" class="shadow"/>
+            <!-- antenna -->
+            <line x1="160" y1="40" x2="160" y2="70" class="stroke"/>
+            <circle cx="160" cy="34" r="9" class="accent"/>
+            <!-- head -->
+            <rect x="105" y="70" width="110" height="80" rx="22" class="body"/>
+            <rect x="122" y="90" width="76" height="40" rx="14" class="screen"/>
+            <circle cx="145" cy="110" r="7" class="eye"/>
+            <circle cx="175" cy="110" r="7" class="eye"/>
+            <path d="M148 124 q12 8 24 0" class="smile"/>
+            <!-- body -->
+            <rect x="115" y="158" width="90" height="82" rx="18" class="body"/>
+            <!-- badge -->
+            <rect x="128" y="172" width="30" height="20" rx="4" class="badge"/>
+            <line x1="133" y1="179" x2="153" y2="179" class="badge-line"/>
+            <line x1="133" y1="185" x2="147" y2="185" class="badge-line"/>
+            <!-- legs -->
+            <rect x="130" y="240" width="18" height="36" rx="8" class="limb"/>
+            <rect x="172" y="240" width="18" height="36" rx="8" class="limb"/>
+            <!-- arms holding box -->
+            <rect x="80" y="170" width="40" height="16" rx="8" class="limb"/>
+            <rect x="200" y="170" width="40" height="16" rx="8" class="limb"/>
+            <!-- pizza box -->
+            <rect x="185" y="140" width="110" height="34" rx="5" class="box"/>
+            <rect x="185" y="140" width="110" height="9" rx="4" class="box-lid"/>
+            <circle cx="240" cy="158" r="10" class="accent"/>
+            <circle cx="236" cy="155" r="2.5" class="topping"/>
+            <circle cx="244" cy="161" r="2.5" class="topping"/>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- The four ideas -->
+    <section class="ideas" aria-labelledby="ideas-title">
+      <div class="wrap">
+        <h2 id="ideas-title" class="section-title">Four ideas this tour keeps apart</h2>
+        <ul class="idea-grid">
+          <li><span class="idea-tag">Identity</span><strong>Who you are</strong><p>The teacher, or Robo itself.</p></li>
+          <li><span class="idea-tag">Permission</span><strong>What you may do</strong><p>Proving who you are does not mean you may do anything.</p></li>
+          <li><span class="idea-tag">Credential</span><strong>How you prove it</strong><p>A password, a badge, a temporary key.</p></li>
+          <li><span class="idea-tag">Secret storage</span><strong>Where secrets live</strong><p>A locked box, opened only by someone allowed to.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section id="story" class="story" aria-labelledby="story-title">
+      <div class="wrap narrow">
+        <h2 id="story-title" class="section-title">The story</h2>
+        <p>
+          Maple Hill Elementary is throwing a class party, and the teacher sends <strong>Robo</strong>,
+          the school's helper robot, to order pizza. To get it done safely, Robo needs a few things:
+          a teacher who is really a teacher, a website that is really the school's, a badge, a way
+          to prove that badge at the kitchen door, a temporary key, and the code to the pizza shop's
+          membership account.
+        </p>
+        <p>
+          Each of those is a real problem that real systems solve, and each one maps to an AWS
+          service. The chapters below follow Robo's errand in order.
+        </p>
+      </div>
+    </section>
+
+    <!-- Chapters -->
+    <section id="chapters" class="chapters" aria-labelledby="chapters-title">
+      <div class="wrap">
+        <h2 id="chapters-title" class="section-title">Chapters</h2>
+        <ol class="chapter-list">
+          <li class="chapter">
+            <span class="num">1</span>
+            <div>
+              <h3>The teacher logs in</h3>
+              <p class="service">Amazon Cognito</p>
+              <p>Sign-in for people: accounts, passwords, and tokens that say who signed in.</p>
+              <p class="see">See it run: a live sign-in on this site</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+          <li class="chapter">
+            <span class="num">2</span>
+            <div>
+              <h3>The website has to be the real one</h3>
+              <p class="service">AWS Certificate Manager</p>
+              <p>The padlock in your browser, and the certificate behind it.</p>
+              <p class="see">See it run: this site's own HTTPS certificate</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+          <li class="chapter">
+            <span class="num">3</span>
+            <div>
+              <h3>The badge office signs Robo's badge</h3>
+              <p class="service">AWS Private Certificate Authority</p>
+              <p>Running your own badge office for machines, first by hand, then managed.</p>
+              <p class="see">See it run: a certificate authority built with openssl</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+          <li class="chapter">
+            <span class="num">4</span>
+            <div>
+              <h3>Robo and the kitchen check each other's badges</h3>
+              <p class="service">Mutual TLS</p>
+              <p>Both sides prove who they are before they talk.</p>
+              <p class="see">See it run: two tiny services shake hands</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+          <li class="chapter">
+            <span class="num">5</span>
+            <div>
+              <h3>The key desk hands out a temporary key</h3>
+              <p class="service">AWS IAM, IAM Roles Anywhere, AWS STS</p>
+              <p>Permissions, and keys that expire, instead of one master key forever.</p>
+              <p class="see">See it run: a long-lived key "before", short-lived credentials "after"</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+          <li class="chapter">
+            <span class="num">6</span>
+            <div>
+              <h3>Robo opens the locked treasure box</h3>
+              <p class="service">AWS Secrets Manager</p>
+              <p>Storing, reading, and changing a secret without writing it into code.</p>
+              <p class="see">See it run: store, read, and rotate a secret</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+          <li class="chapter">
+            <span class="num">7</span>
+            <div>
+              <h3>Staff use their school logins</h3>
+              <p class="service">AWS Directory Service</p>
+              <p>Accounts for the people who work at the school, a different job from customer sign-in.</p>
+              <p class="see">Explained, not run</p>
+            </div>
+            <span class="status">Coming soon</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Four cards -->
+    <section class="cards" aria-labelledby="cards-title">
+      <div class="wrap">
+        <h2 id="cards-title" class="section-title">Every chapter, four ways</h2>
+        <ul class="card-grid">
+          <li><h3>Explain it three ways</h3><p>One line for an executive, a paragraph for a product manager, a walkthrough for an engineer.</p></li>
+          <li><h3>How it's priced</h3><p>The pricing model from public list prices, with a worked example on a made-up workload.</p></li>
+          <li><h3>Alternatives</h3><p>Other ways to solve the same problem, from other clouds, vendors, and open source.</p></li>
+          <li><h3>See it run</h3><p>A live demo, or a replay of a real run with private details removed.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about" aria-labelledby="about-title">
+      <div class="wrap narrow">
+        <h2 id="about-title" class="section-title">About</h2>
+        <p>
+          Built by Qiaowei Wang. I work at Amazon. This is a personal learning project built only
+          from public AWS documentation and pricing. Views are my own and do not represent Amazon
+          or AWS. Not affiliated with or endorsed by AWS.
+        </p>
+        <p>
+          Every fact links to a public source. The project is built in the open, one chapter at a
+          time. Source code coming soon.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© 2026 Qiaowei Wang · Personal project, public sources only · Built with Claude Code</p>
+    </div>
+  </footer>
+</body>
+</html>
