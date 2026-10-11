@@ -1,0 +1,24 @@
+# Building the school's badge office (openssl, EC P-256)
+master.crt   subject=CN=Maple Hill Master Stamp
+             issuer=CN=Maple Hill Master Stamp
+desk.crt     subject=CN=Maple Hill Desk Stamp
+             issuer=CN=Maple Hill Master Stamp
+robo.crt     subject=CN=robo.school.example
+             issuer=CN=Maple Hill Desk Stamp
+kitchen.crt  subject=CN=kitchen.school.example
+             issuer=CN=Maple Hill Desk Stamp
+
+# 1. Robo knocks on the kitchen door (mutual TLS)
+   kitchen sees robo.school.example, TLSv1.2, ECDHE-ECDSA-CHACHA20-POLY1305
+   robo sees kitchen.school.example, reply: Come in.
+   -> ACCEPTED
+
+# 2. An outside drone with a badge from another office knocks
+   kitchen's check: unable to get local issuer certificate
+   -> REJECTED
+
+# 3. Robo's key was copied: cancel its badge, publish the cancelled list
+   CRL: Serial Number: 1000
+   CRL: Key Compromise
+   kitchen's check: certificate revoked
+   -> REJECTED

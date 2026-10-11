@@ -16,5 +16,12 @@ when it was last checked.
 | AWS Private CA runs a private certificate authority | [What is AWS Private CA](https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html) | 2026-10-11 |
 | Let's Encrypt is a free public certificate authority | [Let's Encrypt FAQ](https://letsencrypt.org/docs/faq/) | 2026-10-11 |
 | The certificate chain shown for this site | Observed with openssl on 2026-10-11 | 2026-10-11 |
+| A private CA hierarchy: a root CA with subordinate CAs below it | [AWS Private CA: CA hierarchy](https://docs.aws.amazon.com/privateca/latest/userguide/ca-hierarchy.html) | 2026-10-11 |
+| AWS Private CA offers revocation via CRLs, managed OCSP, or both | [AWS Private CA: revocation](https://docs.aws.amazon.com/privateca/latest/userguide/revocation-setup.html) | 2026-10-11 |
+| step-ca is an online certificate authority | [step-ca docs](https://smallstep.com/docs/step-ca/) | 2026-10-11 |
+| HashiCorp Vault has a PKI secrets engine | [Vault PKI docs](https://developer.hashicorp.com/vault/docs/secrets/pki) | 2026-10-11 |
+| Google Cloud Certificate Authority Service | [CA Service overview](https://cloud.google.com/certificate-authority-service/docs/ca-service-overview) | 2026-10-11 |
+| Certificate and CRL format | [RFC 5280](https://www.rfc-editor.org/rfc/rfc5280.html) | 2026-10-11 |
+| The private badge office replay | Real run of lab/badge_office.py on 2026-10-11 | 2026-10-11 |
 
 Trusty Stamps, Maple Hill Elementary, and the `.example` party sites are made up.

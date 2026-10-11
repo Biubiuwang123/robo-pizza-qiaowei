@@ -10,7 +10,7 @@
       item.classList.add("pop");
       setTimeout(() => item.classList.remove("pop"), 600);
     }
-    const all = document.querySelectorAll("#mvp li");
+    const all = document.querySelectorAll("#mvp li[data-k]");
     const done = document.querySelectorAll("#mvp li.done");
     const pill = $("mvpPill");
     pill.textContent = `Badge office: ${done.length}/${all.length}` + (done.length === all.length ? " ✓" : "");
@@ -20,7 +20,7 @@
   function unlock(id) { $(id).classList.remove("locked"); }
 
   // Acts after the first start locked until the previous step is played.
-  ["act2", "act3", "act4", "act5"].forEach((id) => $(id).classList.add("locked"));
+  ["act2", "act3", "act4", "act5", "act6", "act7", "wrap"].forEach((id) => $(id).classList.add("locked"));
 
   // ---- Act 1: inspect the real badge ----
   $("lock1").addEventListener("click", () => {
@@ -148,6 +148,71 @@
     if (day >= sim.life - sim.renewBefore) tick("expire");
     if (renewalsSoFar > 0 && sim.downFrom === null) { tick("renew"); unlock("act5"); }
   }
+
+  // ---- Act 5: build the school's private badge office ----
+  $("mkMaster").addEventListener("click", () => {
+    $("cMaster").hidden = false; $("mkMaster").disabled = true; $("mkDesk").disabled = false; tick("master");
+  });
+  $("mkDesk").addEventListener("click", () => {
+    $("cDesk").hidden = false; $("mkDesk").disabled = true; $("mkBadge").disabled = false; tick("desk");
+  });
+  $("mkBadge").addEventListener("click", () => {
+    $("cBadge").hidden = false; $("mkBadge").disabled = true; unlock("act6");
+  });
+
+  // ---- Act 6: both sides check each other ----
+  function handshake(visitorOk) {
+    $("handshake").hidden = false;
+    const m1 = $("hs1").querySelector(".hs-msg"), m2 = $("hs2").querySelector(".hs-msg");
+    const v = $("hsVerdict");
+    m1.textContent = "…"; m2.textContent = ""; v.textContent = ""; v.className = "verdict";
+    $("hs1").className = "hs-row"; $("hs2").className = "hs-row";
+    setTimeout(() => {
+      m2.textContent = "kitchen.school.example, stamped by Maple Hill ✓";
+      $("hs2").classList.add("ok");
+    }, 500);
+    setTimeout(() => {
+      if (visitorOk) {
+        m1.textContent = "robo.school.example, stamped by Maple Hill ✓";
+        $("hs1").classList.add("ok");
+        v.textContent = "Both badges check out. \"Come in.\"";
+        v.classList.add("good");
+      } else {
+        m1.textContent = "drone.delivery.example, stamped by Somewhere Else ✗";
+        $("hs1").classList.add("bad");
+        v.textContent = "A real badge, but not one of ours. Door stays shut.";
+        v.classList.add("bad");
+        tick("trust");
+        unlock("act7");
+      }
+    }, 1000);
+  }
+  $("knockRobo").addEventListener("click", () => handshake(true));
+  $("knockDrone").addEventListener("click", () => handshake(false));
+
+  // ---- Act 7: cancel a badge whose key was copied ----
+  let revoked = false;
+  $("longLife").addEventListener("change", () => {
+    $("risk").innerHTML = $("longLife").checked
+      ? "The copy works for up to <b>a whole year</b> unless someone cancels it."
+      : "The copy works for at most <b>1 day</b>, even if nobody notices.";
+  });
+  $("revoke").addEventListener("click", () => {
+    revoked = true; $("cancelled").hidden = false; $("revoke").disabled = true;
+  });
+  $("thief").addEventListener("click", () => {
+    const v = $("thiefVerdict");
+    v.hidden = false;
+    if (revoked) {
+      v.textContent = "Kitchen checks the cancelled list: this badge was cancelled. Door stays shut. Robo gets a fresh badge with a new key.";
+      v.className = "verdict good";
+      tick("revoke");
+      unlock("wrap");
+    } else {
+      v.textContent = "Badge and key both check out, so the thief walks in. Cancel the badge first.";
+      v.className = "verdict bad";
+    }
+  });
 
   ["autoRenew", "noteStays", "rules2029"].forEach((id) => $(id).addEventListener("change", draw));
   $("days").addEventListener("input", draw);

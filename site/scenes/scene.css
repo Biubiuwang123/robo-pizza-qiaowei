@@ -123,3 +123,29 @@ input[type="range"] { width: 100%; accent-color: var(--accent); margin: 6px 0 10
 
 .scene-nav { padding-bottom: 40px; font-size: .95rem; }
 .checks-list li > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+
+/* Part two */
+.part-break { margin: 36px 0 18px; }
+.part-break h2 { font-size: 1.6rem; }
+.build-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.build-row .btn-small { margin-top: 4px; }
+.chain { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 0; }
+.chain li { position: relative; display: grid; gap: 2px; background: var(--bg); border: 2px solid var(--green); border-radius: 12px; padding: 12px 14px; margin-left: 0; animation: rise .35s ease-out; }
+.chain li + li { margin-top: 22px; margin-left: 22px; }
+.chain li + li::before { content: "stamps ↓"; position: absolute; top: -20px; left: 8px; font-size: .72rem; color: var(--muted); }
+.chain li span { color: var(--muted); font-size: .9rem; }
+.chain li code { justify-self: start; font-size: .75rem; }
+.handshake { margin-top: 14px; display: grid; gap: 8px; }
+.hs-row { display: grid; grid-template-columns: 150px 1fr; gap: 10px; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: .92rem; }
+@media (max-width: 560px) { .hs-row { grid-template-columns: 1fr; } }
+.hs-row.ok { border-color: var(--green); }
+.hs-row.bad { border-color: var(--accent); }
+.hs-who { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.verdict.good { color: var(--green); }
+.risk { margin: 6px 0 12px; }
+.cancelled { margin-top: 14px; display: grid; gap: 2px; background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; font-size: .9rem; animation: rise .35s ease-out; }
+.cancelled span { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .82rem; }
+.mvp-list li.mvp-group { display: block; counter-increment: none; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 8px; }
+.mvp-list li.mvp-group::before { content: none; }
+.mvp { max-height: calc(100vh - 100px); overflow-y: auto; }
+@media (max-width: 900px) { .mvp { max-height: none; } }

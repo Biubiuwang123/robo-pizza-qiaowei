@@ -136,8 +136,61 @@
       </section>
 
       <!-- Wrap-up -->
-      <section class="act locked" id="act5" aria-labelledby="a5">
-        <h2 id="a5">What you just used</h2>
+      <div class="part-break">
+        <p class="eyebrow">Part two</p>
+        <h2>Robo's own badge</h2>
+        <p>The website badge proves the party site to the whole world. The kitchen is different: it's the school's own system, and it only lets in robots the school itself vouches for. So the school runs its own badge office.</p>
+      </div>
+
+      <!-- Act 5: build a private office -->
+      <section class="act" id="act5" aria-labelledby="a5">
+        <h2 id="a5"><span class="act-num">5</span> Set up the school's badge office</h2>
+        <p>Build it in three moves.</p>
+        <div class="build-row">
+          <button class="btn-small" id="mkMaster">Carve the master stamp</button>
+          <button class="btn-small" id="mkDesk" disabled>Make a desk stamp</button>
+          <button class="btn-small" id="mkBadge" disabled>Stamp Robo's badge</button>
+        </div>
+        <ol class="chain" id="chain">
+          <li id="cMaster" hidden><b>Master stamp</b><span>Locked in the vault. Only ever used to make desk stamps.</span><code>root CA · offline</code></li>
+          <li id="cDesk" hidden><b>Desk stamp</b><span>Signed by the master stamp. Does the daily stamping, so the master can stay locked away.</span><code>subordinate CA</code></li>
+          <li id="cBadge" hidden><b>Robo's badge</b><span>robo.school.example · good for 1 day</span><code>leaf certificate</code></li>
+        </ol>
+      </section>
+
+      <!-- Act 6: mutual check at the kitchen door -->
+      <section class="act" id="act6" aria-labelledby="a6">
+        <h2 id="a6"><span class="act-num">6</span> Knock on the kitchen door</h2>
+        <p>At this door, <em>both</em> sides show a badge.</p>
+        <div class="choice-row">
+          <button class="btn-choice" id="knockRobo">Robo knocks<small>badge from Maple Hill's office</small></button>
+          <button class="btn-choice" id="knockDrone">A delivery drone knocks<small>badge from another office</small></button>
+        </div>
+        <div class="handshake" id="handshake" hidden>
+          <div class="hs-row" id="hs1"><span class="hs-who">Visitor → kitchen</span><span class="hs-msg"></span></div>
+          <div class="hs-row" id="hs2"><span class="hs-who">Kitchen → visitor</span><span class="hs-msg"></span></div>
+          <p class="verdict" id="hsVerdict"></p>
+        </div>
+        <p class="caption">Both sides checking each other is <code>mutual TLS</code>. The kitchen's short list of stamps it accepts is its <code>trust store</code>.</p>
+      </section>
+
+      <!-- Act 7: revoke -->
+      <section class="act" id="act7" aria-labelledby="a7">
+        <h2 id="a7"><span class="act-num">7</span> Robo's key gets copied</h2>
+        <p>At the repair shop, someone copies Robo's memory, secret key included. Now a thief can show Robo's badge <em>and</em> pass the challenge.</p>
+        <label class="toggle"><input type="checkbox" id="longLife"> Badges last a year instead of a day</label>
+        <p class="risk" id="risk">The copy works for at most <b>1 day</b>, even if nobody notices.</p>
+        <div class="build-row">
+          <button class="btn-small" id="revoke">Cancel Robo's badge</button>
+          <button class="btn-small ghost" id="thief">The thief knocks</button>
+        </div>
+        <div class="cancelled" id="cancelled" hidden><b>Cancelled badges</b><span>robo.school.example · serial 1000 · key copied</span></div>
+        <p class="verdict" id="thiefVerdict" hidden></p>
+        <p class="caption">The cancelled list is a <code>CRL</code>. A live "is this badge still good?" check is <code>OCSP</code>.</p>
+      </section>
+
+      <section class="act" id="wrap" aria-labelledby="aw">
+        <h2 id="aw">What you just used</h2>
         <div class="glossary">
           <div><b>Badge</b><span>certificate</span></div>
           <div><b>Trusty Stamps</b><span>certificate authority</span></div>
@@ -145,14 +198,49 @@
           <div><b>Robo's challenge</b><span>proof you hold the private key, part of the TLS handshake</span></div>
           <div><b>Note on the door</b><span>DNS validation</span></div>
           <div><b>Re-stamping</b><span>managed renewal</span></div>
+          <div><b>Master stamp</b><span>root certificate authority</span></div>
+          <div><b>Desk stamp</b><span>subordinate certificate authority</span></div>
+          <div><b>Kitchen's list of accepted stamps</b><span>trust store</span></div>
+          <div><b>Both show badges</b><span>mutual TLS</span></div>
+          <div><b>Cancelled list</b><span>certificate revocation (CRL, OCSP)</span></div>
         </div>
 
         <h3>Who runs badge offices</h3>
         <ul class="who">
           <li><b>Public stamp offices</b> that every browser trusts, such as <a href="https://letsencrypt.org/docs/faq/" rel="noopener">Let's Encrypt</a>.</li>
           <li><b>Badge office as a service</b>: request, prove, and re-stamp handled for you. On AWS that's <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html" rel="noopener">AWS Certificate Manager</a>. Cloudflare, Google Cloud and Azure offer their own.</li>
-          <li><b>A private stamp office</b> for badges only your own systems trust, like the one Robo will carry to the kitchen. That's the next act, with <a href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html" rel="noopener">AWS Private CA</a>.</li>
+          <li><b>A private badge office</b> for badges only your own systems trust. Run it yourself with tools like <a href="https://smallstep.com/docs/step-ca/" rel="noopener">step-ca</a> or <a href="https://developer.hashicorp.com/vault/docs/secrets/pki" rel="noopener">HashiCorp Vault</a>, or use a managed one such as <a href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html" rel="noopener">AWS Private CA</a> or Google Cloud's <a href="https://cloud.google.com/certificate-authority-service/docs/ca-service-overview" rel="noopener">Certificate Authority Service</a>. The managed kind runs the stamps and <a href="https://docs.aws.amazon.com/privateca/latest/userguide/revocation-setup.html" rel="noopener">publishes the cancelled list</a> for you.</li>
         </ul>
+
+        <details class="peek">
+          <summary>Peek at a real private badge office</summary>
+          <p>Part two, for real: a master stamp, a desk stamp, and badges built with openssl on a laptop, then real handshakes between Robo and the kitchen.</p>
+<pre class="replay"><code># Building the school&#x27;s badge office (openssl, EC P-256)
+master.crt   subject=CN=Maple Hill Master Stamp
+             issuer=CN=Maple Hill Master Stamp
+desk.crt     subject=CN=Maple Hill Desk Stamp
+             issuer=CN=Maple Hill Master Stamp
+robo.crt     subject=CN=robo.school.example
+             issuer=CN=Maple Hill Desk Stamp
+kitchen.crt  subject=CN=kitchen.school.example
+             issuer=CN=Maple Hill Desk Stamp
+
+# 1. Robo knocks on the kitchen door (mutual TLS)
+   kitchen sees robo.school.example, TLSv1.2, ECDHE-ECDSA-CHACHA20-POLY1305
+   robo sees kitchen.school.example, reply: Come in.
+   -&gt; ACCEPTED
+
+# 2. An outside drone with a badge from another office knocks
+   kitchen&#x27;s check: unable to get local issuer certificate
+   -&gt; REJECTED
+
+# 3. Robo&#x27;s key was copied: cancel its badge, publish the cancelled list
+   CRL: Serial Number: 1000
+   CRL: Key Compromise
+   kitchen&#x27;s check: certificate revoked
+   -&gt; REJECTED</code></pre>
+          <p class="caption">Run it yourself: <a href="https://github.com/Biubiuwang123/robo-pizza-qiaowei/blob/main/lab/badge_office.py" rel="noopener">lab/badge_office.py</a>. This is the do-it-yourself version; a managed private CA does the stamping and the cancelled list for you.</p>
+        </details>
 
         <details class="peek">
           <summary>Peek at the real badge on this page</summary>
@@ -181,12 +269,17 @@
         <li data-k="own">Checks the requester owns the name</li>
         <li data-k="expire">Expires on purpose</li>
         <li data-k="renew">Re-stamps before expiry, without a human</li>
+        <li class="mvp-group" aria-hidden="true">Private office</li>
+        <li data-k="master">Keeps the master stamp locked away</li>
+        <li data-k="desk">Uses a desk stamp for daily work</li>
+        <li data-k="trust">Lets your own systems choose whose stamp to trust</li>
+        <li data-k="revoke">Can cancel a badge before it expires</li>
       </ol>
       <p class="mvp-done" id="mvpDone" hidden>That's the whole product. Everything else is scale and polish.</p>
     </aside>
   </main>
 
-  <a class="mvp-pill" id="mvpPill" href="#mvpBox">Badge office: 0/7</a>
+  <a class="mvp-pill" id="mvpPill" href="#mvpBox">Badge office: 0/11</a>
 
   <nav class="scene-nav wrap" aria-label="Scenes">
     <a href="../#scenes">&larr; All scenes</a>
